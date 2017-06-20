@@ -1,12 +1,7 @@
-package com.t3h.basemvp.ui.main;
+package com.example.minhd.ezhome.ui.main;
 
-import android.support.v4.app.FragmentManager;
-
-import com.t3h.basemvp.R;
-import com.t3h.basemvp.ui.base.activity.BaseActivity;
-import com.t3h.basemvp.ui.base.animation.ScreenAnimation;
-import com.t3h.basemvp.ui.base.fragment.BaseFragment;
-import com.t3h.basemvp.ui.main.listmusic.ListMusicFragment;
+import com.example.minhd.ezhome.R;
+import com.example.minhd.ezhome.ui.base.activity.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -22,12 +17,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initComponents() {
-        FragmentManager manager = getSupportFragmentManager();
-        BaseFragment.
-                openFragment(manager,
-                        manager.beginTransaction(),
-                        ListMusicFragment.class,
-                        ScreenAnimation.NONE, null, false, true);
+
     }
 
     @Override

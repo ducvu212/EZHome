@@ -1,6 +1,5 @@
-package com.t3h.basemvp.ui.base.fragment;
+package com.example.minhd.ezhome.ui.base.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -11,11 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.t3h.basemvp.R;
-import com.t3h.basemvp.ui.base.IViewMain;
-import com.t3h.basemvp.ui.base.activity.BaseActivity;
-import com.t3h.basemvp.ui.base.animation.ScreenAnimation;
+import com.example.minhd.ezhome.R;
+import com.example.minhd.ezhome.ui.base.IViewMain;
+import com.example.minhd.ezhome.ui.base.activity.BaseActivity;
+import com.example.minhd.ezhome.ui.base.animation.ScreenAnimation;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package com.t3h.basemvp.ui.base;
+package com.example.minhd.ezhome.ui.base;
 
 import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 
 /**
  * Created by ducnd on 5/18/17.

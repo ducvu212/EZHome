@@ -1,4 +1,4 @@
-package com.t3h.basemvp.ui.base;
+package com.example.minhd.ezhome.ui.base;
 
 /**
  * Created by ducnd on 5/21/17.

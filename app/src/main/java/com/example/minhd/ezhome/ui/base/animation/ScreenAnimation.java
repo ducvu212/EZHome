@@ -1,6 +1,6 @@
-package com.t3h.basemvp.ui.base.animation;
+package com.example.minhd.ezhome.ui.base.animation;
 
-import com.t3h.basemvp.R;
+import com.example.minhd.ezhome.R;
 
 /**
  * Created by ducnd on 5/18/17.

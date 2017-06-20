@@ -1,16 +1,16 @@
-package com.t3h.basemvp.ui.base.activity;
+package com.example.minhd.ezhome.ui.base.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.t3h.basemvp.R;
-import com.t3h.basemvp.ui.base.IViewMain;
-import com.t3h.basemvp.ui.base.fragment.BaseFragment;
+import com.example.minhd.ezhome.R;
+import com.example.minhd.ezhome.ui.base.IViewMain;
+import com.example.minhd.ezhome.ui.base.fragment.BaseFragment;
+
 
 /**
  * Created by ducnd on 5/18/17.

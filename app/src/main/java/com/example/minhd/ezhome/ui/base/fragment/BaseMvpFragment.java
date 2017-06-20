@@ -1,6 +1,6 @@
-package com.t3h.basemvp.ui.base.fragment;
+package com.example.minhd.ezhome.ui.base.fragment;
 
-import com.t3h.basemvp.ui.base.IBasePresenter;
+import com.example.minhd.ezhome.ui.base.IBasePresenter;
 
 /**
  * Created by ducnd on 5/21/17.

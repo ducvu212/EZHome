@@ -1,8 +1,4 @@
-package com.t3h.basemvp.ui.base;
-
-import android.widget.ImageView;
-
-import com.t3h.basemvp.module.ItemSongReponse;
+package com.example.minhd.ezhome.ui.base;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +12,8 @@ import io.reactivex.schedulers.Schedulers;
  * Created by ducnd on 5/21/17.
  */
 
-public class BasePresenter<V extends IViewMain> implements IBasePresenter {
+public class BasePresenter<V extends com.example.minhd.ezhome.ui.base.IViewMain>
+        implements IBasePresenter {
 
     protected V mView;
 

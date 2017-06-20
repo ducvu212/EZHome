@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EZHome</string>
+    <string name="Loading">Loading</string>
 </resources>

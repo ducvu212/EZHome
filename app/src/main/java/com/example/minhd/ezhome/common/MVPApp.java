@@ -1,4 +1,4 @@
-package com.t3h.basemvp.common;
+package com.example.minhd.ezhome.common;
 
 import android.app.Application;
 import android.content.Context;

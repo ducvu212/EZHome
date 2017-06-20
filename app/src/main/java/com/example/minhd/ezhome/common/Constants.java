@@ -1,4 +1,4 @@
-package com.t3h.basemvp.common;
+package com.example.minhd.ezhome.common;
 
 /**
  * Created by ducnd on 5/18/17.
@@ -6,7 +6,7 @@ package com.t3h.basemvp.common;
 
 public interface Constants {
 
-    // ta ca nhung gi chung cua ung ung
+    // tat ca nhung gi chung cua ung ung
     boolean DEBUG = true;
 
     String WEB_SITE_NAME = "mp3.zing.vn";

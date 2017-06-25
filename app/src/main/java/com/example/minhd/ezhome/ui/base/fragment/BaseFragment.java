@@ -10,12 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.example.minhd.ezhome.R;
 import com.example.minhd.ezhome.ui.base.IViewMain;
 import com.example.minhd.ezhome.ui.base.activity.BaseActivity;
 import com.example.minhd.ezhome.ui.base.animation.ScreenAnimation;
-
-import java.util.List;
 
 /**
  * Created by ducnd on 5/18/17.
@@ -81,7 +80,6 @@ public abstract class BaseFragment extends Fragment
         super.onDestroyView();
     }
 
-
     public static void openFragment(FragmentManager manager,
                                     FragmentTransaction transaction,
                                     Class<? extends BaseFragment> newClass,
@@ -98,7 +96,7 @@ public abstract class BaseFragment extends Fragment
                         screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
                         screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
                 fragment.setArguments(data);
-                transaction.add(R.id.content, fragment, tag);
+                transaction.add(R.id.MainAct, fragment, tag);
 
             } catch (java.lang.InstantiationException e) {
                 e.printStackTrace();
@@ -132,7 +130,7 @@ public abstract class BaseFragment extends Fragment
         transaction.setCustomAnimations(
                 screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
                 screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-        transaction.add(R.id.content, fragment, tag);
+        transaction.add(R.id.MainAct, fragment, tag);
         if (isAddBackStack) {
             transaction.addToBackStack(tag);
         }
@@ -180,21 +178,7 @@ public abstract class BaseFragment extends Fragment
         }
     }
 
-    public static BaseFragment getCurrentBaseFragment(FragmentManager manager) {
-        List<Fragment> fragments = manager.getFragments();
-        if (fragments == null) {
-            return null;
-        }
-        for (int i = fragments.size() - 1; i >= 0; i--) {
-            BaseFragment fragment = (BaseFragment) fragments.get(i);
-            if (fragment != null &&
-                    fragment.isVisible()) {
-                return fragment;
-            }
-        }
-        return null;
 
-    }
-
+    public abstract void onBackPressed();
 
 }

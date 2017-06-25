@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.minhd.ezhome.R;
 import com.example.minhd.ezhome.ui.base.IViewMain;
-import com.example.minhd.ezhome.ui.base.fragment.BaseFragment;
 
 
 /**
@@ -61,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public final void onBackPressed() {
+    public void onBackPressed() {
         //1
         onBackRoot();
     }
@@ -69,11 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public void onBackRoot() {
         //2
-        BaseFragment fragment = BaseFragment.getCurrentBaseFragment(getSupportFragmentManager());
-        if (fragment != null) {
-            //3
-            fragment.onBackRoot();
-        }
+
     }
 
     public final void onBackMain(){

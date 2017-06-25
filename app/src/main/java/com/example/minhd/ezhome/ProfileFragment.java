@@ -1,6 +1,7 @@
-package com.t3h.basemvp;
+package com.example.minhd.ezhome;
 
-import com.t3h.basemvp.ui.base.fragment.BaseFragment;
+
+import com.example.minhd.ezhome.ui.base.fragment.BaseFragment;
 
 /**
  * Created by ducnd on 5/18/17.
@@ -9,7 +10,7 @@ import com.t3h.basemvp.ui.base.fragment.BaseFragment;
 public class ProfileFragment extends BaseFragment {
     @Override
     public int getLayoutMain() {
-        return R.layout.fragment_profile;
+        return 0;
     }
 
     @Override
@@ -27,4 +28,8 @@ public class ProfileFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

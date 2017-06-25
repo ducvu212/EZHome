@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "153744821990",
+    "project_id": "firebase-ez-home"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153744821990:android:0a01e3604639d384",
+        "android_client_info": {
+          "package_name": "com.example.minhd.ezhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153744821990-be8u143kls8va5ark78u7tq1q9cvk3ah.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "153744821990-4d6i0mk1a9e88hlosehfa398jlkplb2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minhd.ezhome",
+            "certificate_hash": "9386310f078357c885f1458a6b1adb3dc5d4f7d2"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNhbYKlAb5fmymVCHCuz4gMNZfYjvvFN4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

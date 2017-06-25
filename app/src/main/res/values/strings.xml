@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">EZHome</string>
     <string name="Loading">Loading</string>
+    <string name="facebook_app_id">463960337269923</string>
+    <string name="name">name</string>
+    <string name="id">id</string>
+    <string name="email">email</string>
+    <string name="link">link</string>
+    <string name="fields">fields</string>
+    <string name="fields_name">id,name,link,email</string>
+    <string name="data">data</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

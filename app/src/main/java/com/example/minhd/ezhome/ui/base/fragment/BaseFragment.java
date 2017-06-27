@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.minhd.ezhome.R;
 import com.example.minhd.ezhome.ui.base.IViewMain;
 import com.example.minhd.ezhome.ui.base.activity.BaseActivity;

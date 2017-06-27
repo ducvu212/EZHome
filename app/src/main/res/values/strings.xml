@@ -6,8 +6,15 @@
     <string name="id">id</string>
     <string name="email">email</string>
     <string name="link">link</string>
+    <string name="cover">cover</string>
     <string name="fields">fields</string>
-    <string name="fields_name">id,name,link,email</string>
+    <string name="fields_name">id,name,link,email,cover</string>
     <string name="data">data</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

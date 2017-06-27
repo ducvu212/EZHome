@@ -4,25 +4,22 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.minhd.ezhome.R;
 import com.example.minhd.ezhome.ui.base.activity.BaseActivity;
-import com.example.minhd.ezhome.ui.base.activity.MapsActivity;
+import com.example.minhd.ezhome.ui.base.activity.Main2Activity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -33,30 +30,30 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
-import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.net.URL;
 import java.util.Arrays;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static MainActivity mainActivity;
     private CallbackManager callbackManager;
     private FacebookCallback<LoginResult> loginResult;
     private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
-    private TextView tvLogin, tvLoginGG;
-    private static final String TAG = "MainActivity";
+    private TextView tvLoginFB, tvLoginGG;
     private static final int RC_SIGN_IN = 9001;
-    private String personName, personGivenName, personFamilyName, personEmail, personId;
-    private Uri personPhoto;
-    private FrameLayout frameLayout;
+    public static String personName, personGivenName, personFamilyName, personEmail, personId, personCover;
+    public static Uri personPhoto;
     private Button btnLogin;
     private static GoogleSignInAccount acct;
-    public static boolean check;
+    public static String name, id, email, link, coverPicUrl;
+    public static URL imageURL;
 
 
     @Override
@@ -69,24 +66,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViewByIds();
         LoginManager.getInstance().registerCallback(callbackManager, loginResult);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.
+                Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */,
-                        this /* OnConnectionFailedListener */)
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .enableAutoManage(this,
+                        this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
                 .build();
+
+        if (checkLogin()) {
+            openMapActivity();
+        }
 
         tvLoginGG.setOnClickListener(this);
 
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginFaceBook();
-            }
-        });
+        tvLoginFB.setOnClickListener(this);
+
+//        Log.d("TAGG", printKeyHash(this));
+
     }
 
     @Override
@@ -96,9 +98,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void findViewByIds() {
-        tvLogin = (TextView) findViewById(R.id.btnLoginFb);
+        tvLoginFB = (TextView) findViewById(R.id.btnLoginFb);
         tvLoginGG = (TextView) findViewById(R.id.btnLoginGG);
-        frameLayout = (FrameLayout) findViewById(R.id.MainAct);
         btnLogin = (Button) findViewById(R.id.btn_login);
 
     }
@@ -112,7 +113,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void setEvents() {
 
     }
-
 
     //FaceBook Login
 
@@ -135,12 +135,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
 
-                Toast.makeText(mainActivity, personName + "\n" +
-                                personGivenName + "\n" +
-                                personFamilyName + "\n" +
-                                personEmail + "\n" +
-                                personId + "\n"
-                        , Toast.LENGTH_SHORT).show();
+                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
+                personCover = cover.getUrl();
+
+                Log.d("Cover", cover.getUrl());
+
                 openMapActivity();
 
             } else {
@@ -153,7 +153,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     //Login facebook with permisstion
     public void loginFaceBook() {
-        LoginManager.getInstance().logInWithReadPermissions(mainActivity, Arrays.asList("public_profile", "user_friends", "email"));
+        LoginManager.getInstance().logInWithReadPermissions(mainActivity,
+                Arrays.asList("public_profile", "user_friends", "email"));
     }
 
     //Hàm check login facebook
@@ -162,73 +163,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         return accessToken != null;
     }
 
-    //Lấy Avatar
-    public URL extractFacebookIcon(String id) {
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
-            URL imageURL = new URL("http://graph.facebook.com/" + id
-                    + "/picture?type=large");
-            return imageURL;
-        } catch (Throwable e) {
-            return null;
-        }
-    }
-
     public void initFaceBook() {
-        if (isLoggedInFaceBook()) {
-            openMapActivity();
-        } else {
-            loginResult = new FacebookCallback<LoginResult>() {
 
-                @Override
-                public void onSuccess(LoginResult loginResult) {
+        loginResult = new FacebookCallback<LoginResult>() {
 
-                    //Login thành công xử lý tại đây
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            AccessToken.getCurrentAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(JSONObject object,
-                                                        GraphResponse response) {
-                                    // Application code
-                                    String name = object.optString(getString(R.string.name));
-                                    String id = object.optString(getString(R.string.id));
-                                    String email = object.optString(getString(R.string.email));
-                                    String link = object.optString(getString(R.string.link));
-                                    URL imageURL = extractFacebookIcon(id);
-                                    Log.d("name: ", name);
-                                    Log.d("id: ", id);
-                                    Log.d("email: ", email);
-                                    Log.d("link: ", link);
-                                    Log.d("imageURL: ", imageURL.toString());
+            @Override
+            public void onSuccess(LoginResult loginResult) {
 
-                                }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
-                    request.setParameters(parameters);
-                    request.executeAsync();
+                //Login thành công xử lý tại đây
+                GraphRequest request = GraphRequest.newMeRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        (object, response) -> {
+
+                            // Application code
+                            name = object.optString(getString(R.string.name));
+                            id = object.optString(getString(R.string.id));
+                            email = object.optString(getString(R.string.email));
+                            link = object.optString(getString(R.string.link));
+                            try {
+                                coverPicUrl = object.getJSONObject("cover").getString("source");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            openMapActivity();
+                        });
+
+                Bundle parameters = new Bundle();
+                parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
+                request.setParameters(parameters);
+                request.executeAsync();
 
 
-                    Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                }
+            }
 
-                @Override
-                public void onCancel() {
+            @Override
+            public void onCancel() {
 
-                }
+            }
 
-                @Override
-                public void onError(FacebookException error) {
+            @Override
+            public void onError(FacebookException error) {
 
-                }
-            };
-        }
+            }
+        };
     }
+
 
     //Google Login
     @Override
@@ -237,7 +218,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
-            Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
         } else {
@@ -253,7 +233,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
 
         if (result.isSuccess()) {
             acct = result.getSignInAccount();
@@ -269,21 +248,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void revokeAccess() {
-        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-
-                    }
-                });
-    }
-
     //Common
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        
     }
 
     private void showProgressDialog() {
@@ -308,34 +277,65 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.btnLoginGG:
                 signIn();
                 break;
+
+            case R.id.btnLoginFb:
+                loginFaceBook();
+                break;
+            default:
         }
     }
 
     private void openMapActivity() {
 
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
 
-    }
-
-    @Override
-    public void onBackRoot() {
-        super.onBackRoot();
     }
 
     @Override
     public void onBackPressed() {
         checkLogin();
         finish();
-        return;
 
     }
 
-    public static void checkLogin() {
+
+    public static boolean checkLogin() {
         if (acct != null || isLoggedInFaceBook()) {
-            check = true;
-        }
-        else check = false;
+            return true;
+        } else return false;
     }
+
+//    public String printKeyHash(Activity context) {
+//        PackageInfo packageInfo;
+//        String key = null;
+//        try {
+//            //getting application package name, as defined in manifest
+//            String packageName = context.getApplicationContext().getPackageName();
+//
+//            //Retriving package info
+//            packageInfo = context.getPackageManager().getPackageInfo(packageName,
+//                    PackageManager.GET_SIGNATURES);
+//
+//            Log.e("Package Name=", context.getApplicationContext().getPackageName());
+//
+//            for (android.content.pm.Signature signature : packageInfo.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                key = new String(Base64.encode(md.digest(), 0));
+//
+//                // String key = new String(Base64.encodeBytes(md.digest()));
+//                Log.e("Key Hash=", key);
+//            }
+//        } catch (PackageManager.NameNotFoundException e1) {
+//            Log.e("Name not found", e1.toString());
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.e("No such an algorithm", e.toString());
+//        } catch (Exception e) {
+//            Log.e("Exception", e.toString());
+//        }
+//
+//        return key;
+//    }
 
 }

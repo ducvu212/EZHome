@@ -1884,6 +1884,10 @@
         "source": "C:\\Users\\minhd\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-android-sdk-4.23.0.aar\\ffde09bd11842d3a7cb9f7de1371f250\\res\\drawable-mdpi-v4\\com_facebook_button_send_icon_white.png"
     },
     {
+        "merged": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\res\\merged\\debug\\layout_info_fragment.xml.flat",
+        "source": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\layout\\info_fragment.xml"
+    },
+    {
         "merged": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\minhd\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\03e337abf9eb739db89d10ff618a27ee\\res\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
@@ -2150,6 +2154,10 @@
     {
         "merged": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
         "source": "C:\\Users\\minhd\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\03e337abf9eb739db89d10ff618a27ee\\res\\drawable-xxxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_a.jpg.flat",
+        "source": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\drawable-xxxhdpi\\a.jpg"
     },
     {
         "merged": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_focused_holo.9.png.flat",

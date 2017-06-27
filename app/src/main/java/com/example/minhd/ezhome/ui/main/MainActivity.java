@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private static MainActivity mainActivity;
     private CallbackManager callbackManager;
     private FacebookCallback<LoginResult> loginResult;
-    private GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
     private TextView tvLoginFB, tvLoginGG;
     private static final int RC_SIGN_IN = 9001;
@@ -114,38 +114,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     //FaceBook Login
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
-            if (result.isSuccess()) {
-                GoogleSignInAccount acct = result.getSignInAccount();
-                personName = acct.getDisplayName();
-                personGivenName = acct.getGivenName();
-                personFamilyName = acct.getFamilyName();
-                personEmail = acct.getEmail();
-                personId = acct.getId();
-                personPhoto = acct.getPhotoUrl();
-
-                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-                Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
-                personCover = cover.getUrl();
-
-                Log.d("Cover", cover.getUrl());
-
-                openMapActivity();
-
-            } else {
-
-                Toast.makeText(mainActivity, "Failed!", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-    }
 
     //Login facebook with permisstion
     public void loginFaceBook() {
@@ -224,9 +192,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     //Google Login
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+
+            if (result.isSuccess()) {
+                GoogleSignInAccount acct = result.getSignInAccount();
+                personName = acct.getDisplayName();
+                personGivenName = acct.getGivenName();
+                personFamilyName = acct.getFamilyName();
+                personEmail = acct.getEmail();
+                personId = acct.getId();
+                personPhoto = acct.getPhotoUrl();
+
+                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
+                personCover = cover.getUrl();
+
+                Log.d("Cover", cover.getUrl());
+
+                openMapActivity();
+
+            } else {
+
+                Toast.makeText(mainActivity, "Failed!", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
+        mGoogleApiClient.connect();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {

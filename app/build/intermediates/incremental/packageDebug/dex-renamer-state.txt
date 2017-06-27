@@ -1,4 +1,4 @@
-#Tue Jun 27 20:44:28 ICT 2017
+#Tue Jun 27 23:04:29 ICT 2017
 base.0=D\:\\code\\GitHub\\New folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
 renamed.1=classes2.dex
 renamed.0=classes.dex

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -79,9 +80,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .addApi(Plus.API)
                 .build();
 
-        if (checkLogin()) {
-            openMapActivity();
-        }
 
         tvLoginGG.setOnClickListener(this);
 
@@ -120,9 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        if (acct != null) {
-            openMapActivity();
-        }
+
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
@@ -180,6 +176,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                             id = object.optString(getString(R.string.id));
                             email = object.optString(getString(R.string.email));
                             link = object.optString(getString(R.string.link));
+                            imageURL = extractFacebookIcon(id);
+                            Log.d("FaceBook", name + "\n" + imageURL + "\n" + coverPicUrl) ;
                             try {
                                 coverPicUrl = object.getJSONObject("cover").getString("source");
                             } catch (JSONException e) {
@@ -210,6 +208,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         };
     }
 
+    //Lay ava FB
+    public URL extractFacebookIcon(String id) {
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL imageURL = new URL("http://graph.facebook.com/" + id
+                    + "/picture?type=large");
+            return imageURL;
+        } catch (Throwable e) {
+            return null;
+        }
+    }
 
     //Google Login
     @Override

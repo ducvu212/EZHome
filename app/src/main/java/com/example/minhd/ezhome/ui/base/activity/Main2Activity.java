@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,12 +82,13 @@ public class Main2Activity extends AppCompatActivity
             tvLink.setText(personEmail);
             Picasso.with(this).load(personPhoto).into(imgAva);
             new setCover(navBackground).execute(personCover);
-
+            Log.d("TAGG", personEmail + "\n" + personCover +"\n" + personName );
         }
         if (imageURL != null) {
             tvName.setText(name);
             tvLink.setText(email);
 
+            Log.d("TAGG", name + "\n" + imageURL + "\n" + coverPicUrl) ;
             try {
                 setCoverNav(coverPicUrl);
             } catch (IOException e) {

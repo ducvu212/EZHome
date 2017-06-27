@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\code\\GitHub\\EZHome\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
+        "outputFile": "D:\\code\\GitHub\\New folder\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
         "map": [
             {
                 "to": {
@@ -88,14 +88,14 @@
                     "endOffset": 792
                 },
                 "from": {
-                    "file": "D:\\code\\GitHub\\EZHome\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "file": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\values-v21\\styles.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 59,
+                        "startOffset": 56,
                         "endLine": 10,
                         "endColumn": 12,
-                        "endOffset": 504
+                        "endOffset": 494
                     }
                 }
             },
@@ -108,13 +108,13 @@
                     "endOffset": 882
                 },
                 "from": {
-                    "file": "D:\\code\\GitHub\\EZHome\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "file": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\values-v21\\styles.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
-                        "startOffset": 668,
+                        "startOffset": 651,
                         "endColumn": 90,
-                        "endOffset": 754
+                        "endOffset": 737
                     }
                 }
             },
@@ -128,14 +128,14 @@
                     "endOffset": 1032
                 },
                 "from": {
-                    "file": "D:\\code\\GitHub\\EZHome\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "file": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\values-v21\\styles.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 512,
+                        "startOffset": 500,
                         "endLine": 15,
                         "endColumn": 12,
-                        "endOffset": 660
+                        "endOffset": 645
                     }
                 }
             },
@@ -148,13 +148,13 @@
                     "endOffset": 1112
                 },
                 "from": {
-                    "file": "D:\\code\\GitHub\\EZHome\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "file": "D:\\code\\GitHub\\New folder\\app\\src\\main\\res\\values-v21\\styles.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
-                        "startOffset": 762,
+                        "startOffset": 743,
                         "endColumn": 80,
-                        "endOffset": 838
+                        "endOffset": 819
                     }
                 }
             },

@@ -1,111 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86,armeabi-v7a,armeabi"
-    api-level="25"
-    build-mode="COLD"
-    density="xhdpi"
+    abi="x86"
+    api-level="24"
+    build-mode="FULL"
+    density="xxxhdpi"
     format="10"
-    ir-eligibility="FIELD_REMOVED"
     plugin-version="3.0.0-alpha4"
-    timestamp="1498557263567"
-    token="5223914641956786382"
-    verifier="COLD_SWAP_REQUESTED" >
+    timestamp="1498571063987"
+    token="-3877300670212907718"
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="264" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="64" />
+        duration="522" />
     <task
         name="verifier"
-        duration="24" />
+        duration="0" />
 
     <artifact
-        location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        location="D:\code\GitHub\New folder\app\build\outputs\apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
         type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1498553748083"
+        timestamp="1498571063987"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\outputs\apk\debug\app-debug.apk"
+            location="D:\code\GitHub\New folder\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
         <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="CLASS_ADDED"
-        timestamp="1498556985967"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="R_CLASS_CHANGE"
-        timestamp="1498557140830"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="FIELD_REMOVED"
-        timestamp="1498557263567"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="D:\code\GitHub\EZHome\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            location="D:\code\GitHub\New folder\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
     </build>
 

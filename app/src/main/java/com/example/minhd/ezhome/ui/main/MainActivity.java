@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public static String personName, personGivenName, personFamilyName, personEmail, personId, personCover;
     public static Uri personPhoto;
     private Button btnLogin;
-    private static GoogleSignInAccount acct;
+    public static GoogleSignInAccount acct;
     public static String name, id, email, link, coverPicUrl;
     public static URL imageURL;
 
@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         GoogleSignInOptions gso = new GoogleSignInOptions.
                 Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
 
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .enableAutoManage(this,
                         this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+
                 .addApi(Plus.API)
                 .build();
 
@@ -198,7 +200,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN && mGoogleApiClient.isConnected()) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
             if (result.isSuccess()) {
@@ -209,13 +211,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 personEmail = acct.getEmail();
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
-
+                Log.d("IMAGE", String.valueOf(personPhoto)) ;
                 Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-                Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
-                personCover = cover.getUrl();
+                if (person.hasCover()) {
+                    Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
+                    personCover = cover.getUrl();
 
-                Log.d("Cover", cover.getUrl());
-
+                    Log.d("Cover", cover.getUrl());
+                }
                 openMapActivity();
 
             } else {
@@ -232,7 +235,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onStart();
         mGoogleApiClient.connect();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.
+                silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
@@ -268,7 +272,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        
+
     }
 
     private void showProgressDialog() {

@@ -49,9 +49,9 @@ public class MapFragment extends SupportMapFragment implements
         GoogleMap.InfoWindowAdapter {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    private GoogleMap googleMap;
+    public static GoogleMap googleMap;
     private boolean isFirstChangeLocation;
-    private Marker marker;
+    public static Marker marker;
     private Polyline polyline;
 
     //lay dia chi vi tri thong latlong
@@ -96,7 +96,7 @@ public class MapFragment extends SupportMapFragment implements
             } else {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Confirm")
-                        .setMessage("location")
+                        .setMessage("Location")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -118,6 +118,8 @@ public class MapFragment extends SupportMapFragment implements
             return;
         }
         initMyLocation();
+        makerAdress();
+
     }
 
     @Override
@@ -156,7 +158,6 @@ public class MapFragment extends SupportMapFragment implements
 //        googleMap.setOnInfoWindowClickListener(this);
 //        googleMap.setInfoWindowAdapter(this);
         googleMap.setMyLocationEnabled(true);
-
         checkOpenLocation();
     }
 
@@ -289,4 +290,63 @@ public class MapFragment extends SupportMapFragment implements
         return view;
     }
 
+//    public GeoPoint getLocationFromAddress(String strAddress){
+//
+//        Geocoder coder = new Geocoder(this);
+//        List<Address> address;
+//        GeoPoint p1 = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress,5);
+//            if (address==null) {
+//                return null;
+//            }
+//            Address location=address.get(0);
+//            location.getLatitude();
+//            location.getLongitude();
+//
+//            p1 = new GeoPoint((double) (location.getLatitude() * 1E6),
+//                    (double) (location.getLongitude() * 1E6));
+//
+//            return p1;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return  p1 ;
+//    }
+
+    private void makerAdress() {
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+        String [] arr = {"Ngõ 105 Doãn Kế Thiện Mai Dịch Cầu Giấy hà Nội",
+                "Ngõ 245 định công hạ hoàng mai hà Nội"};
+
+        MarkerOptions options = new MarkerOptions();
+
+        try {
+            for (int i = 0; i < arr.length; i++) {
+                List<Address> addresses = geocoder.getFromLocationName(arr[i], 1);
+                Address address = addresses.get(0);
+                double longitude = address.getLongitude();
+                double latitude = address.getLatitude();
+                Log.d("Adres" , arr.length+"");
+                Log.d("Adres", latitude + "\n" + longitude);
+
+                LatLng latLng = new LatLng(latitude, longitude);
+                options.
+                        icon(BitmapDescriptorFactory.
+                                defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                options.position(latLng);
+                options.title("My location");
+                options.snippet(arr[i]) ;
+                marker = googleMap.addMarker(options);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 }

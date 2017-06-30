@@ -1,4 +1,4 @@
-#Tue Jun 27 23:26:03 ICT 2017
-base.0=D\:\\code\\GitHub\\New folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\8
+#Fri Jun 30 22:18:58 ICT 2017
+base.0=D\:\\code\\GitHub\\New folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\22
 renamed.0=classes.dex
-file.0=D\:\\code\\GitHub\\New folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\8\\classes.dex
+file.0=D\:\\code\\GitHub\\New folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\22\\classes.dex

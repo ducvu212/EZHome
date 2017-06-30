@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "153744821990",
-    "project_id": "firebase-ez-home"
+    "firebase_url": "https://fir-ez-home.firebaseio.com",
+    "project_id": "firebase-ez-home",
+    "storage_bucket": "firebase-ez-home.appspot.com"
   },
   "client": [
     {
@@ -13,11 +15,23 @@
       },
       "oauth_client": [
         {
+          "client_id": "153744821990-bdd2vilupefnki5b69u6gdm7niuaafle.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "153744821990-ll72arbkh07sed35bqccq8ro324smn4r.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "153744821990-5g38vel9j69js6vdai6mbsbh3kn2pron.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "153744821990-be8u143kls8va5ark78u7tq1q9cvk3ah.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "153744821990-4d6i0mk1a9e88hlosehfa398jlkplb2h.apps.googleusercontent.com",
+          "client_id": "153744821990-qob764stptbnbnkm4c6bj003k3idboec.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.minhd.ezhome",
@@ -35,11 +49,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153744821990-bdd2vilupefnki5b69u6gdm7niuaafle.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

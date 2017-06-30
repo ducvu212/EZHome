@@ -1,6 +1,0 @@
-COMMAND=PREDEX_LIBRARY_TO_DEX_ARCHIVE
-FILE_PATH=D:\code\GitHub\New folder\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar
-FILE_HASH=69320036149cf3398d141263d88ad02cc9559495
-DX_VERSION=1.13
-JUMBO_MODE=true
-OPTIMIZE=true

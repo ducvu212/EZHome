@@ -1,0 +1,6 @@
+COMMAND=PREDEX_LIBRARY_TO_DEX_ARCHIVE
+FILE_PATH=C:\Users\n\Desktop\EZHome\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar
+FILE_HASH=077b9c0d77fdb25d309d1874d2005aecca0c94e1
+DX_VERSION=1.13
+JUMBO_MODE=true
+OPTIMIZE=true

@@ -1,11 +1,16 @@
 package com.example.minhd.ezhome.ui.main;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +42,8 @@ import com.google.android.gms.plus.model.people.Person;
 import org.json.JSONException;
 
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
@@ -52,7 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public static String personName, personGivenName, personFamilyName, personEmail, personId, personCover;
     public static Uri personPhoto;
     private Button btnLogin;
-    public static GoogleSignInAccount acct;
+    private static GoogleSignInAccount acct;
     public static String name, id, email, link, coverPicUrl;
     public static URL imageURL;
 
@@ -63,14 +70,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         mainActivity = this;
+        openMapActivity();
         initFaceBook();
         findViewByIds();
         LoginManager.getInstance().registerCallback(callbackManager, loginResult);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.
                 Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestServerAuthCode(getString(R.string.server_client_id))
                 .build();
 
         mGoogleApiClient = new GoogleApiClient
@@ -78,7 +87,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .enableAutoManage(this,
                         this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-
                 .addApi(Plus.API)
                 .build();
 
@@ -87,7 +95,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         tvLoginFB.setOnClickListener(this);
 
-//        Log.d("TAGG", printKeyHash(this));
+        Log.d("TAGG", printKeyHash(this));
 
     }
 
@@ -200,9 +208,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN && mGoogleApiClient.isConnected()) {
+        if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
+            String s = result.getStatus() + "";
+            String ss = result.getSignInAccount() + "";
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
                 personName = acct.getDisplayName();
@@ -235,8 +244,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onStart();
         mGoogleApiClient.connect();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.
-                silentSignIn(mGoogleApiClient);
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
@@ -326,36 +334,41 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         } else return false;
     }
 
-//    public String printKeyHash(Activity context) {
-//        PackageInfo packageInfo;
-//        String key = null;
-//        try {
-//            //getting application package name, as defined in manifest
-//            String packageName = context.getApplicationContext().getPackageName();
-//
-//            //Retriving package info
-//            packageInfo = context.getPackageManager().getPackageInfo(packageName,
-//                    PackageManager.GET_SIGNATURES);
-//
-//            Log.e("Package Name=", context.getApplicationContext().getPackageName());
-//
-//            for (android.content.pm.Signature signature : packageInfo.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                key = new String(Base64.encode(md.digest(), 0));
-//
-//                // String key = new String(Base64.encodeBytes(md.digest()));
-//                Log.e("Key Hash=", key);
-//            }
-//        } catch (PackageManager.NameNotFoundException e1) {
-//            Log.e("Name not found", e1.toString());
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("No such an algorithm", e.toString());
-//        } catch (Exception e) {
-//            Log.e("Exception", e.toString());
-//        }
-//
-//        return key;
-//    }
+    public String printKeyHash(Activity context) {
+        PackageInfo packageInfo;
+        String key = null;
+        try {
+            //getting application package name, as defined in manifest
+            String packageName = context.getApplicationContext().getPackageName();
+
+            //Retriving package info
+            packageInfo = context.getPackageManager().getPackageInfo(packageName,
+                    PackageManager.GET_SIGNATURES);
+
+            Log.e("Package Name=", context.getApplicationContext().getPackageName());
+
+            for (android.content.pm.Signature signature : packageInfo.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                key = new String(Base64.encode(md.digest(), 0));
+
+                // String key = new String(Base64.encodeBytes(md.digest()));
+                Log.e("Key Hash=", key);
+            }
+        } catch (PackageManager.NameNotFoundException e1) {
+            Log.e("Name not found", e1.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("No such an algorithm", e.toString());
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+
+        return key;
+    }
+
+
+    public Context getContextApp(){
+        return getApplicationContext();
+    }
 
 }

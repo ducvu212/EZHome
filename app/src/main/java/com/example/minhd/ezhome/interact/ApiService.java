@@ -5,5 +5,5 @@ package com.example.minhd.ezhome.interact;
  */
 
 public interface ApiService {
-
+    boolean Register();
 }

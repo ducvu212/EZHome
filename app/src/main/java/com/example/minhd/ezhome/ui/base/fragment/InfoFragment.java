@@ -60,7 +60,7 @@ public class InfoFragment extends BaseFragment {
 
     @Override
     public void initComponents() {
-        if (personName != null) {
+        if (personPhoto != null) {
             tvName.setText(personName);
             tvEmail.setText(personEmail);
             Picasso.with(getContext()).load(personPhoto).into(imgAva);
@@ -68,7 +68,7 @@ public class InfoFragment extends BaseFragment {
             Log.d("TAGG", personEmail + "\n" + personCover +"\n" + personPhoto );
 
         }
-        if (name != null) {
+        if (imageURL != null) {
             tvName.setText(name);
             tvEmail.setText(email);
             Log.d("TAGG", name + "\n" + imageURL + "\n" + coverPicUrl) ;

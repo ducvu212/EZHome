@@ -24,8 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.minhd.ezhome.R;
-import com.example.minhd.ezhome.interact.FirebaseSever;
-import com.example.minhd.ezhome.ui.base.fragment.HomeFragment;
+import com.example.minhd.ezhome.ui.base.fragment.BaseFragment;
 import com.example.minhd.ezhome.ui.base.fragment.InfoFragment;
 import com.example.minhd.ezhome.ui.base.fragment.RegisterFragment;
 import com.example.minhd.ezhome.ui.main.MainActivity;
@@ -48,7 +47,6 @@ import static com.example.minhd.ezhome.ui.main.MainActivity.coverPicUrl;
 import static com.example.minhd.ezhome.ui.main.MainActivity.email;
 import static com.example.minhd.ezhome.ui.main.MainActivity.id;
 import static com.example.minhd.ezhome.ui.main.MainActivity.imageURL;
-import static com.example.minhd.ezhome.ui.main.MainActivity.isLoggedInFaceBook;
 import static com.example.minhd.ezhome.ui.main.MainActivity.mGoogleApiClient;
 import static com.example.minhd.ezhome.ui.main.MainActivity.name;
 import static com.example.minhd.ezhome.ui.main.MainActivity.personCover;
@@ -105,13 +103,14 @@ public class Main2Activity extends AppCompatActivity
         }
 
 
-        if (mGoogleApiClient.isConnected()) {
-            tvName.setText(personName);
-            tvLink.setText(personEmail);
+        if (personName != null) {
+            tvName.setText(personName+"");
+            tvLink.setText(personEmail+"");
+            if (personPhoto != null)
             Picasso.with(this).load(personPhoto).into(imgAva);
             new setCover(navBackground).execute(personCover);
         }
-        if (isLoggedInFaceBook() && imageURL != null) {
+        if (personName != null && imageURL != null) {
             tvName.setText(name);
             tvLink.setText(email);
 
@@ -253,28 +252,16 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            HomeFragment home = new HomeFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.map, home);
-            transaction.commit();
+
 
         } else if (id == R.id.user) {
-
             InfoFragment infoFragment = new InfoFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.map, infoFragment);
-            transaction.addToBackStack("Ahihi");
-            transaction.commit();
+
+            startFragments(infoFragment);
 
         } else if (id == R.id.reg) {
-            RegisterFragment fragment = new RegisterFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.map, fragment);
-            transaction.addToBackStack("ss");
-            transaction.commit();
+            RegisterFragment registerFragment = new RegisterFragment();
+            startFragments(registerFragment);
 
         } else if (id == R.id.logout) {
             disconnectFromFacebook();
@@ -286,6 +273,17 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    private void startFragments(BaseFragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.map, fragment);
+        transaction.addToBackStack("Ahihi");
+        transaction.commit();
+
     }
 
     public void disconnectFromFacebook() {

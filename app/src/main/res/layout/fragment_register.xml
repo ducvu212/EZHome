@@ -18,7 +18,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Đăng kí cho thuê"
+            android:text="Vu Minh Duc"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 

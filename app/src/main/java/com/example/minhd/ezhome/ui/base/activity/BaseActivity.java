@@ -1,7 +1,6 @@
 package com.example.minhd.ezhome.ui.base.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -20,7 +19,6 @@ public abstract class BaseActivity extends AppCompatActivity
         implements IViewMain {
     private ProgressDialog mProgress;
     protected boolean mIsDestroy;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

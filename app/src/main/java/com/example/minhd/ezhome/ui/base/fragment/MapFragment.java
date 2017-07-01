@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.minhd.ezhome.R;
-import com.example.minhd.ezhome.interact.FirebaseSever;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,9 +49,9 @@ public class MapFragment extends SupportMapFragment implements
         GoogleMap.InfoWindowAdapter {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    private GoogleMap googleMap;
+    public static GoogleMap googleMap;
     private boolean isFirstChangeLocation;
-    private Marker marker;
+    public static Marker marker;
     private Polyline polyline;
 
     //lay dia chi vi tri thong latlong
@@ -64,7 +63,6 @@ public class MapFragment extends SupportMapFragment implements
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
         getMapAsync(this);
     }
-
 
 
     @Override
@@ -98,7 +96,7 @@ public class MapFragment extends SupportMapFragment implements
             } else {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Confirm")
-                        .setMessage("location")
+                        .setMessage("Location")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -120,6 +118,8 @@ public class MapFragment extends SupportMapFragment implements
             return;
         }
         initMyLocation();
+        makerAdress();
+
     }
 
     @Override
@@ -158,7 +158,6 @@ public class MapFragment extends SupportMapFragment implements
 //        googleMap.setOnInfoWindowClickListener(this);
 //        googleMap.setInfoWindowAdapter(this);
         googleMap.setMyLocationEnabled(true);
-
         checkOpenLocation();
     }
 
@@ -168,11 +167,11 @@ public class MapFragment extends SupportMapFragment implements
         Log.d(TAG, "location long: " + location.getLongitude());
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         //co chuc nang di chuyen den vi tri position
-//        CameraPosition cameraPosition =
-//                new CameraPosition(latLng,
-//                        13,0, 0);
-//        //dua camera position vao google map
-//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        CameraPosition cameraPosition =
+                new CameraPosition(latLng,
+                        13, 0, 0);
+        //dua camera position vao google map
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         if (!isFirstChangeLocation) {
             isFirstChangeLocation = true;
 
@@ -291,10 +290,36 @@ public class MapFragment extends SupportMapFragment implements
         return view;
     }
 
-    private void makerAdress() {
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+//    public GeoPoint getLocationFromAddress(String strAddress){
+//
+//        Geocoder coder = new Geocoder(this);
+//        List<Address> address;
+//        GeoPoint p1 = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress,5);
+//            if (address==null) {
+//                return null;
+//            }
+//            Address location=address.get(0);
+//            location.getLatitude();
+//            location.getLongitude();
+//
+//            p1 = new GeoPoint((double) (location.getLatitude() * 1E6),
+//                    (double) (location.getLongitude() * 1E6));
+//
+//            return p1;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return  p1 ;
+//    }
 
-        String [] arr = {"Ngo 20 Ho tung mau",
+    private void makerAdress() {
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+        String [] arr = {"Ngõ 105 Doãn Kế Thiện Mai Dịch Cầu Giấy hà Nội",
                 "Ngõ 245 định công hạ hoàng mai hà Nội"};
 
         MarkerOptions options = new MarkerOptions();
@@ -321,6 +346,7 @@ public class MapFragment extends SupportMapFragment implements
             e.printStackTrace();
         }
 
-    }
 
+
+    }
 }

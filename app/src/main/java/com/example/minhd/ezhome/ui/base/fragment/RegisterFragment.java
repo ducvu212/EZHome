@@ -11,10 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.minhd.ezhome.R;
-import com.example.minhd.ezhome.interact.ApiService;
-import com.example.minhd.ezhome.interact.FirebaseSever;
-import com.example.minhd.ezhome.ui.base.InfomationRegister;
-import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.minhd.ezhome.ui.main.MainActivity.name;
 import static com.example.minhd.ezhome.ui.main.MainActivity.personName;
@@ -24,7 +20,6 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
     private EditText edtRegJob, edtRegAdress, edtRegPhoneNumber, edtRegNote ;
     private TextView tvRegName ;
     private Spinner spPrice, spDientich ;
-    private ApiService apiService;
     private String [] arrPrice = {"< 1.000.00", "1.000.000-2.000.000",
         "2.000.000-3.000.000", "3.000.000-4.000.000", "> 4.000.000"} ;
     private String [] arrDientich = {"< 15M", "15-30M", "30-60M", "> 60M"} ;
@@ -125,13 +120,6 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onClick(View v) {
-        String address = edtRegAdress.getText().toString();
-        String phoneNumber = edtRegPhoneNumber.getText().toString();
-        String price = spPrice.getSelectedItem().toString();
-        String area = spDientich.getSelectedItem().toString();
-        String info = edtRegNote.getText().toString();
-        InfomationRegister infomation = new InfomationRegister(address, phoneNumber, price, area, info );
 
-        FirebaseSever re = new FirebaseSever(getContext(), infomation);
     }
 }

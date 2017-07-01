@@ -8,7 +8,7 @@ public class AccountInteractor {
     private static AccountInteractor instance = new AccountInteractor();
 
     private AccountInteractor() {
-
+        
     }
 
     public static AccountInteractor getInstance() {

@@ -12,10 +12,10 @@
     <string name="data">data</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="server_client_id">153744821990-5g38vel9j69js6vdai6mbsbh3kn2pron.apps.googleusercontent.com</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="server_client_id">153744821990-ll72arbkh07sed35bqccq8ro324smn4r.apps.googleusercontent.com</string>
 
     <string name="action_settings">Settings</string>
 

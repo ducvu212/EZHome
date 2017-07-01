@@ -1,47 +1,27 @@
 {
   "project_info": {
-    "project_number": "153744821990",
-    "firebase_url": "https://fir-ez-home.firebaseio.com",
-    "project_id": "firebase-ez-home",
-    "storage_bucket": "firebase-ez-home.appspot.com"
+    "project_number": "115355105762",
+    "firebase_url": "https://ezhome-e4d99.firebaseio.com",
+    "project_id": "ezhome-e4d99",
+    "storage_bucket": "ezhome-e4d99.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:153744821990:android:0a01e3604639d384",
+        "mobilesdk_app_id": "1:115355105762:android:0a01e3604639d384",
         "android_client_info": {
           "package_name": "com.example.minhd.ezhome"
         }
       },
       "oauth_client": [
         {
-          "client_id": "153744821990-bdd2vilupefnki5b69u6gdm7niuaafle.apps.googleusercontent.com",
+          "client_id": "115355105762-lg0q6a7s98j26f44nint657n6bcab6jn.apps.googleusercontent.com",
           "client_type": 3
-        },
-        {
-          "client_id": "153744821990-ll72arbkh07sed35bqccq8ro324smn4r.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "153744821990-5g38vel9j69js6vdai6mbsbh3kn2pron.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "153744821990-be8u143kls8va5ark78u7tq1q9cvk3ah.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "153744821990-qob764stptbnbnkm4c6bj003k3idboec.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.minhd.ezhome",
-            "certificate_hash": "9386310f078357c885f1458a6b1adb3dc5d4f7d2"
-          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDNhbYKlAb5fmymVCHCuz4gMNZfYjvvFN4"
+          "current_key": "AIzaSyBMFEnGLLKMUB7j7aPa82xfm-G4ArYsBsA"
         }
       ],
       "services": {
@@ -49,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "153744821990-bdd2vilupefnki5b69u6gdm7niuaafle.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="Welcome to EZHome"
+        android:textColor="@color/white"
+        android:textSize="28dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/pad">
+
+        <TextView
+            android:id="@+id/tv_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Phòng trọ hiện có"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv_phong_tro"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/tv_now"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:text="Developer by DQN Team"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp" />
+
+</RelativeLayout>

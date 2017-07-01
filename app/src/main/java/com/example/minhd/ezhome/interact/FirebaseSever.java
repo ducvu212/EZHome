@@ -1,4 +1,4 @@
-package com.example.minhd.ezhome.interact;
+﻿package com.example.minhd.ezhome.interact;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -58,8 +58,7 @@ public class FirebaseSever {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null){
-                    Toast.makeText(
-                           context , "Succesfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context , "Succesfully", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
                 }

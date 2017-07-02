@@ -4,20 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import com.example.minhd.ezhome.R;
+
 import com.example.minhd.ezhome.ui.base.IViewMain;
 import com.example.minhd.ezhome.ui.base.activity.BaseActivity;
-import com.example.minhd.ezhome.ui.base.animation.ScreenAnimation;
 
-/**
- * Created by ducnd on 5/18/17.
- */
 
 public abstract class BaseFragment extends Fragment
         implements IViewMain {
@@ -78,106 +72,5 @@ public abstract class BaseFragment extends Fragment
         mIsDestroy = true;
         super.onDestroyView();
     }
-
-    public static void openFragment(FragmentManager manager,
-                                    FragmentTransaction transaction,
-                                    Class<? extends BaseFragment> newClass,
-                                    ScreenAnimation screenAnimation,
-                                    Bundle data,
-                                    boolean isAddBackStack,
-                                    boolean isCommit) {
-        String tag = newClass.getName();
-        BaseFragment fragment = (BaseFragment) manager.findFragmentByTag(tag);
-        if (fragment == null) {
-            try {
-                fragment = newClass.newInstance();
-                transaction.setCustomAnimations(
-                        screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
-                        screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-                fragment.setArguments(data);
-                transaction.add(R.id.MainAct, fragment, tag);
-
-            } catch (java.lang.InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (fragment.isVisible()) {
-                return;
-            }
-            transaction.setCustomAnimations(
-                    screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
-                    screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-            transaction.show(fragment);
-        }
-        if (isAddBackStack) {
-            transaction.addToBackStack(tag);
-        }
-        if (isCommit) {
-            transaction.commit();
-        }
-    }
-
-    public static void openFragment(FragmentManager manager,
-                                    FragmentTransaction transaction,
-                                    BaseFragment fragment,
-                                    ScreenAnimation screenAnimation,
-                                    boolean isAddBackStack,
-                                    boolean isCommit) {
-        String tag = fragment.getClass().getName();
-        transaction.setCustomAnimations(
-                screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
-                screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-        transaction.add(R.id.MainAct, fragment, tag);
-        if (isAddBackStack) {
-            transaction.addToBackStack(tag);
-        }
-        if (isCommit) {
-            transaction.commit();
-        }
-    }
-
-    public static void hideFragment(FragmentManager manager, FragmentTransaction transaction,
-                                    Class<? extends BaseFragment> classHide,
-                                    ScreenAnimation screenAnimation,
-                                    boolean isAddBackStack,
-                                    boolean isCommit) {
-        String tag = classHide.getName();
-        BaseFragment fragment = (BaseFragment) manager.findFragmentByTag(tag);
-        if (fragment != null && fragment.isVisible()) {
-            transaction.setCustomAnimations(
-                    screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
-                    screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-            if (isAddBackStack) {
-                transaction.addToBackStack(tag);
-            }
-            if (isCommit) {
-                transaction.commit();
-            }
-        }
-    }
-
-    public static void hideFragment(FragmentTransaction transaction,
-                                    BaseFragment fragment,
-                                    ScreenAnimation screenAnimation,
-                                    boolean isAddBackStack,
-                                    boolean isCommit) {
-        if (fragment != null && fragment.isVisible()) {
-            transaction.setCustomAnimations(
-                    screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
-                    screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
-            transaction.hide(fragment);
-            if (isAddBackStack) {
-                transaction.addToBackStack(fragment.getClass().getName());
-            }
-            if (isCommit) {
-                transaction.commit();
-            }
-        }
-    }
-
-
-    public abstract void onBackPressed();
 
 }

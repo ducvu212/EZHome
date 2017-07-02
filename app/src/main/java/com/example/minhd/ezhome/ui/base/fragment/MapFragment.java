@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.minhd.ezhome.R;
+import com.example.minhd.ezhome.common.InfomationRegister;
 import com.example.minhd.ezhome.interact.FirebaseSever;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,8 +36,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,15 +52,16 @@ import java.util.Locale;
  */
 
 public class MapFragment extends SupportMapFragment implements
-        OnMapReadyCallback,FragmentCompat.OnRequestPermissionsResultCallback,
+        OnMapReadyCallback, FragmentCompat.OnRequestPermissionsResultCallback,
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnInfoWindowClickListener,
         GoogleMap.InfoWindowAdapter {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    private GoogleMap googleMap;
+    public static GoogleMap googleMap;
     private boolean isFirstChangeLocation;
-    private Marker marker;
+    public static Marker marker;
     private Polyline polyline;
+    private FirebaseSever sever;
 
     //lay dia chi vi tri thong latlong
     private Geocoder geocoder;
@@ -63,8 +71,8 @@ public class MapFragment extends SupportMapFragment implements
         super.onViewCreated(view, savedInstanceState);
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
         getMapAsync(this);
-    }
 
+    }
 
 
     @Override
@@ -98,7 +106,7 @@ public class MapFragment extends SupportMapFragment implements
             } else {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Confirm")
-                        .setMessage("location")
+                        .setMessage("Location")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -119,7 +127,10 @@ public class MapFragment extends SupportMapFragment implements
             }
             return;
         }
+
         initMyLocation();
+        makerAdress();
+
     }
 
     @Override
@@ -158,7 +169,6 @@ public class MapFragment extends SupportMapFragment implements
 //        googleMap.setOnInfoWindowClickListener(this);
 //        googleMap.setInfoWindowAdapter(this);
         googleMap.setMyLocationEnabled(true);
-
         checkOpenLocation();
     }
 
@@ -168,11 +178,10 @@ public class MapFragment extends SupportMapFragment implements
         Log.d(TAG, "location long: " + location.getLongitude());
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         //co chuc nang di chuyen den vi tri position
-//        CameraPosition cameraPosition =
-//                new CameraPosition(latLng,
-//                        13,0, 0);
-//        //dua camera position vao google map
-//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        CameraPosition cameraPosition =
+                new CameraPosition(latLng, 13, 0, 0) ;
+        //dua camera position vao google map
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         if (!isFirstChangeLocation) {
             isFirstChangeLocation = true;
 
@@ -191,7 +200,7 @@ public class MapFragment extends SupportMapFragment implements
             polygonOptions.clickable(true);
             polygonOptions.add(latLng);
             polyline = googleMap.addPolyline(polygonOptions);
-        }else {
+        } else {
             marker.setTitle("My location");
             marker.setSnippet(getLocation(latLng));
             marker.setPosition(latLng);
@@ -207,17 +216,17 @@ public class MapFragment extends SupportMapFragment implements
         try {
             List<Address> addresses =
                     geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-            if ( addresses == null || addresses.size() == 0 ) {
+            if (addresses == null || addresses.size() == 0) {
                 return null;
             }
-            String result ="";
+            String result = "";
             int maxLine = addresses.get(0).getMaxAddressLineIndex();
-            result  = addresses.get(0).getAddressLine(0);
-            for ( int i = 1; i < maxLine; i++ ) {
-                result += ", "+addresses.get(0).getAddressLine(i);
+            result = addresses.get(0).getAddressLine(0);
+            for (int i = 1; i < maxLine; i++) {
+                result += ", " + addresses.get(0).getAddressLine(i);
             }
             result += ", " + addresses.get(0).getCountryName();
-            return  result;
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -276,11 +285,10 @@ public class MapFragment extends SupportMapFragment implements
 
     @Override
     public View getInfoWindow(Marker marker) {
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View view = inflater.inflate(R.layout.layout_marker, null);
-//        ///thao tao trong view binh thuong
-//        return view;
-        return null;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.layout_marker, null);
+        ///thao tao trong view binh thuong
+        return view;
     }
 
     @Override
@@ -291,36 +299,71 @@ public class MapFragment extends SupportMapFragment implements
         return view;
     }
 
+
     private void makerAdress() {
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        List<String> arrAdress = new ArrayList<>();
 
-        String [] arr = {"Ngo 20 Ho tung mau",
-                "Ngõ 245 định công hạ hoàng mai hà Nội"};
+        myRef.child("Master").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                InfomationRegister infomation = dataSnapshot.getValue(InfomationRegister.class);
+                arrAdress.add(infomation.getAddress());
+                Log.d("Info", infomation.getAddress() + " " + arrAdress.size());
 
-        MarkerOptions options = new MarkerOptions();
+                Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
-        try {
-            for (int i = 0; i < arr.length; i++) {
-                List<Address> addresses = geocoder.getFromLocationName(arr[i], 1);
-                Address address = addresses.get(0);
-                double longitude = address.getLongitude();
-                double latitude = address.getLatitude();
-                Log.d("Adres" , arr.length+"");
-                Log.d("Adres", latitude + "\n" + longitude);
+                MarkerOptions options = new MarkerOptions();
+                List<List<Address>> addresses = new ArrayList<>();
+                Address address = null;
+                try {
+                    for (int i = 0; i < arrAdress.size(); i++) {
 
-                LatLng latLng = new LatLng(latitude, longitude);
-                options.
-                        icon(BitmapDescriptorFactory.
-                                defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                options.position(latLng);
-                options.title("My location");
-                options.snippet(arr[i]) ;
-                marker = googleMap.addMarker(options);
+                        addresses.add(geocoder.getFromLocationName(arrAdress.get(i), 1));
+                        address = addresses.get(i).get(0);
+                        double longitude = address.getLongitude();
+                        double latitude = address.getLatitude();
+                        Log.d("Adres", arrAdress.size() + "");
+                        Log.d("Adres", latitude + "\n" + longitude);
+
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        options.
+                                icon(BitmapDescriptorFactory.
+                                        defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        options.position(latLng);
+                        options.title("My location");
+                        options.snippet(arrAdress.get(i));
+                        marker = googleMap.addMarker(options);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
-
 }

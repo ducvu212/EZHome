@@ -7,6 +7,7 @@ import com.example.minhd.ezhome.R;
  */
 
 public enum ScreenAnimation {
+
     OPEN_FULL(R.anim.enter_to_right, R.anim.exit_to_right,
             R.anim.enter_to_left, R.anim.exit_to_left),
     NONE(0, 0, 0, 0);

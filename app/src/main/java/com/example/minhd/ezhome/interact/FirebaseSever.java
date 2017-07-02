@@ -1,25 +1,20 @@
-﻿package com.example.minhd.ezhome.interact;
+package com.example.minhd.ezhome.interact;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.minhd.ezhome.R;
-import com.example.minhd.ezhome.ui.base.InfomationRegister;
-import com.example.minhd.ezhome.ui.base.dialog.HomeInfomationDialog;
-import com.example.minhd.ezhome.ui.base.fragment.HomeFragment;
+import com.example.minhd.ezhome.common.InfomationRegister;
+import com.example.minhd.ezhome.ui.dialog.HomeInfomationDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,7 +92,7 @@ public class FirebaseSever {
 
             }
         });
-       adapter = new AdapterHome();
+        adapter = new AdapterHome();
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         rcView.setLayoutManager(manager);
         rcView.setAdapter(adapter);
@@ -114,8 +109,8 @@ public class FirebaseSever {
         @Override
         public void onBindViewHolder(HolderHome holder, int position) {
             holder.tvContent.setText(listInfo.get(position).getAddress()+ "\n"
-                                            + listInfo.get(position).getArea() + "\n"
-                                            + listInfo.get(position).getPrice());
+                    + listInfo.get(position).getArea() + "\n"
+                    + listInfo.get(position).getPrice());
         }
 
 

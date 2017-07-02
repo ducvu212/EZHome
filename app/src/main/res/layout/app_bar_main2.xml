@@ -19,8 +19,9 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
+                android:tint="#ffffff"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="230dp"
                 android:src="@drawable/search512"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />

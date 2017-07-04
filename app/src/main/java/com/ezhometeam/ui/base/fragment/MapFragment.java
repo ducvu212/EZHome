@@ -23,7 +23,6 @@ import android.view.View;
 
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
-import com.ezhometeam.interact.FirebaseSever;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,7 +32,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,11 +54,8 @@ public class MapFragment extends SupportMapFragment implements
 
     private static final String TAG = MapFragment.class.getSimpleName();
     public static GoogleMap googleMap;
-    private boolean isFirstChangeLocation;
     public static Marker marker;
-    private Polyline polyline;
-    private FirebaseSever sever;
-
+    private boolean isFirstChangeLocation;
     //lay dia chi vi tri thong latlong
     private Geocoder geocoder;
 
@@ -81,7 +76,7 @@ public class MapFragment extends SupportMapFragment implements
     private void initGoogle(GoogleMap googleMap) {
         //set up goole map
 
-        this.googleMap = googleMap;
+        MapFragment.googleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //set up UI
@@ -176,15 +171,15 @@ public class MapFragment extends SupportMapFragment implements
         Log.d(TAG, "location lat: " + location.getLatitude());
         Log.d(TAG, "location long: " + location.getLongitude());
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        //co chuc nang di chuyen den vi tri position
-        CameraPosition cameraPosition =
-                new CameraPosition(latLng, 13, 0, 0) ;
-        //dua camera position vao google map
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
         if (!isFirstChangeLocation) {
             isFirstChangeLocation = true;
-
-
+            //co chuc nang di chuyen den vi tri position
+            CameraPosition cameraPosition =
+                    new CameraPosition(latLng, 15, 0, 0);
+            //dua camera position vao google map
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             MarkerOptions options = new MarkerOptions();
             options.
                     icon(BitmapDescriptorFactory.

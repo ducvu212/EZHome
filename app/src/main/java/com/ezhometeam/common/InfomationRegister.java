@@ -11,16 +11,23 @@ public class InfomationRegister {
     private String area;
     private String infomation;
 
+    public String getUser() {
+        return user;
+    }
+
+    private String user;
+
+
     public InfomationRegister() {
     }
 
-    public InfomationRegister(String address, String phone, String price, String area, String infomation) {
+    public InfomationRegister(String address, String phone, String price, String area, String infomation, String user) {
         this.address = address;
         this.phone = phone;
         this.price = price;
         this.area = area;
         this.infomation = infomation;
-
+        this.user = user;
     }
 
     public String getAddress() {

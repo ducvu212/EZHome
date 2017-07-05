@@ -16,11 +16,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +41,8 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -77,22 +78,23 @@ public class Main2Activity extends AppCompatActivity
     private ImageView imgSearch;
     private GoogleApiClient mGoogleApiClient;
     private boolean isLogout;
-    private DrawerLayout drawer;
-    private ImageView imgBackground;
-    private Button btnMenu;
+    private String user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            setContentView(R.layout.activity_main2);
-
-        }catch (Exception e) {}
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setContentView(R.layout.activity_main2);
+        Intent intent = getIntent();
+        user = intent.getStringExtra("MAIL");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        locationButton = (ImageView) findViewById(R.id.location);
+        locationButton.setOnClickListener(this);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         try {
             drawer.addDrawerListener(toggle);
             toggle.syncState();
@@ -105,11 +107,8 @@ public class Main2Activity extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         imgSearch = (ImageView) findViewById(R.id.img_search);
-        try {
-            findViewById(R.id.img_navMenu).setOnClickListener(this);
+        tvSearch = (TextView) findViewById(R.id.tv_search);
 
-        }catch (NullPointerException e) {}
-        btnMenu = (Button) findViewById(R.id.img_navMenu) ;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -125,27 +124,6 @@ public class Main2Activity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        if (isLogout) {
-            isLogout = false;
-            Toast.makeText(this, "can not logout", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (isLogout) {
-            isLogout = false;
-            logout();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
 
     private void inflateHeader() {
 
@@ -156,15 +134,14 @@ public class Main2Activity extends AppCompatActivity
             tvName = (TextView) headerView.findViewById(R.id.tv_name);
             tvLink = (TextView) headerView.findViewById(R.id.tv_link);
             imgAva = (ImageView) headerView.findViewById(R.id.img_ava);
-            imgBackground = (ImageView) headerView.findViewById(R.id.background);
-
+            navBackground = (LinearLayout) headerView.findViewById(R.id.nav_background);
 
             if (personName != null) {
                 tvName.setText(personName + "");
                 tvLink.setText(personEmail + "");
                 if (personPhoto != null)
                     Picasso.with(this).load(personPhoto).into(imgAva);
-                Picasso.with(this).load(personCover).into(imgBackground);
+                new setCover(navBackground).execute(personCover);
             }
             if (name != null && imageURL != null) {
                 tvName.setText(name);
@@ -189,6 +166,27 @@ public class Main2Activity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             navBackground.setBackground(drawable);
         }
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        if ( isLogout ) {
+            isLogout = false;
+            Toast.makeText(this, "can not logout", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (isLogout) {
+            isLogout = false;
+            logout();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
 
     }
 
@@ -272,7 +270,6 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -293,16 +290,16 @@ public class Main2Activity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.img_navMenu) {
-            if (drawer.isDrawerOpen(Gravity.LEFT)) {
-                drawer.closeDrawer(Gravity.LEFT);
-            } else {
-                drawer.openDrawer(Gravity.LEFT);
-            }
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        } else if (item.getItemId() == R.id.action_settings) {
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -315,7 +312,6 @@ public class Main2Activity extends AppCompatActivity
         if (id == R.id.home) {
             imgSearch.setVisibility(View.VISIBLE);
             tvSearch.setVisibility(View.VISIBLE);
-            btnMenu.setVisibility(View.VISIBLE);
             if ((infoFragment != null && infoFragment.isVisible())
                     || (registerFragment != null && registerFragment.isVisible())) {
                 FragmentManager manager = getSupportFragmentManager();
@@ -331,11 +327,10 @@ public class Main2Activity extends AppCompatActivity
 
         } else if (id == R.id.user) {
             infoFragment = new InfoFragment();
-
             startFragments(infoFragment);
 
         } else if (id == R.id.reg) {
-            registerFragment = new RegisterFragment();
+            registerFragment = new RegisterFragment(user);
             startFragments(registerFragment);
 
         } else if (id == R.id.logout) {
@@ -355,11 +350,8 @@ public class Main2Activity extends AppCompatActivity
         ScreenAnimation screenAnimation = ScreenAnimation.OPEN_FULL;
         transaction.add(R.id.map, fragment);
         transaction.addToBackStack("Ahihi");
-        try {
-            imgSearch.setVisibility(View.INVISIBLE);
-            tvSearch.setVisibility(View.INVISIBLE);
-            btnMenu.setVisibility(View.INVISIBLE);
-        } catch (NullPointerException e) {}
+        imgSearch.setVisibility(View.INVISIBLE);
+        tvSearch.setVisibility(View.INVISIBLE);
         transaction.setCustomAnimations(
                 screenAnimation.getEnterToRight(), screenAnimation.getExitToRight(),
                 screenAnimation.getEnterToLeft(), screenAnimation.getExitToLeft());
@@ -389,45 +381,37 @@ public class Main2Activity extends AppCompatActivity
             isLogout = true;
             logout();
         } else {
-            isLogout = true;
             mGoogleApiClient.connect();
         }
     }
 
     private void logout() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                status -> {
-                    Toast.makeText(Main2Activity.this, "Success", Toast.LENGTH_SHORT).show();
+                new ResultCallback<Status>() {
+
+                    @Override
+                    public void onResult(Status status) {
+                        Toast.makeText(Main2Activity.this, "Success", Toast.LENGTH_SHORT).show();
 
 //                        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-                    Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 });
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_search:
-                googleMap.setMyLocationEnabled(true);
-                LatLng latLng = new LatLng(googleMap.getMyLocation().getLatitude(),
-                        googleMap.getMyLocation().getLongitude());
-                //co chuc nang di chuyen den vi tri position
-                CameraPosition cameraPosition =
-                        new CameraPosition(latLng, 13, 0, 0);
-                //dua camera position vao google map
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-                break;
-
-            case R.id.img_navMenu:
-                drawer.openDrawer(Gravity.START);
-                break;
-
-            default:
-        }
+        googleMap.setMyLocationEnabled(true);
+        LatLng latLng = new LatLng(googleMap.getMyLocation().getLatitude(),
+                googleMap.getMyLocation().getLongitude());
+        //co chuc nang di chuyen den vi tri position
+        CameraPosition cameraPosition =
+                new CameraPosition(latLng, 13, 0, 0);
+        //dua camera position vao google map
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override

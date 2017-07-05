@@ -145,6 +145,7 @@
             android:layout_marginTop="810dp"
             android:gravity="center"
             android:text="Đăng ký"
+            android:id="@+id/tv_register"
             android:textSize="25sp"
             android:textColor="#fff"
             android:textStyle="bold" />

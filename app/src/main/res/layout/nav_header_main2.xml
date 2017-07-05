@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_background"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/background"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/nav_background"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="196dp" />
-
     <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/user96"
         android:id="@+id/img_ava"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="70dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/user96" />
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:paddingLeft="16dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Android Studio"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -35,8 +33,6 @@
         android:id="@+id/tv_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
-        android:paddingLeft="16dp"
         android:text="android.studio@android.com" />
 
-</RelativeLayout>
+</LinearLayout>

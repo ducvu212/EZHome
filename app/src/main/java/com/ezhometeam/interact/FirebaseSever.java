@@ -3,6 +3,7 @@ package com.ezhometeam.interact;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
 import com.ezhometeam.ui.dialog.HomeInfomationDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +52,7 @@ public class FirebaseSever {
         listInfo = new ArrayList<>();
         address = new ArrayList<>();
     }
+
 
     private void register(Context context, InfomationRegister info){
         myRef.child("Master").push().setValue(info, new DatabaseReference.CompletionListener() {
@@ -149,4 +155,24 @@ public class FirebaseSever {
             }
         }
     }
+
+    public boolean signInAcc(String email, String pass) {
+        final boolean[] re = new boolean[1];
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword( email, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            re[0] = true;
+                            Toast.makeText(mContext, "Succesfully", Toast.LENGTH_SHORT).show();
+                        }else {
+                            re[0] = false;
+                            Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        return re[0];
+    }
+
 }

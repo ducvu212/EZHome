@@ -11,18 +11,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ezhometeam.R;
+import com.ezhometeam.common.InfomationRegister;
+import com.ezhometeam.interact.FirebaseSever;
 
-import static com.ezhometeam.ui.main.MainActivity.name;
-import static com.ezhometeam.ui.main.MainActivity.personName;
 
 public class RegisterFragment extends BaseFragment implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private EditText edtRegAdress, edtRegPhoneNumber, edtRegNote;
-    private TextView tvRegName;
-    private Spinner spPrice, spDientich;
-    private String[] arrPrice = {"< 1.000.00", "1.000.000-2.000.000",
-            "2.000.000-3.000.000", "3.000.000-4.000.000", "> 4.000.000"};
-    private String[] arrDientich = {"< 15M", "15-30M", "30-60M", "> 60M"};
+    private EditText edtRegJob, edtRegAdress, edtRegPhoneNumber, edtRegNote ;
+    private TextView tvRegName ;
+    private String userId;
+    private Spinner spPrice, spDientich ;
+    private String [] arrPrice = {"< 1.000.00", "1.000.000-2.000.000",
+        "2.000.000-3.000.000", "3.000.000-4.000.000", "> 4.000.000"} ;
+    private String [] arrDientich = {"< 15M", "15-30M", "30-60M", "> 60M"} ;
+
+    public RegisterFragment(String user) {
+        userId = user;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -31,6 +36,10 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
         creaAdapterSpiner();
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 
     @Override
     public int getLayoutMain() {
@@ -40,32 +49,31 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void findViewByIds() {
 
-        tvRegName = (TextView) getView().findViewById(R.id.RegName);
-        edtRegAdress = (EditText) getView().findViewById(R.id.edt_address);
-        edtRegNote = (EditText) getView().findViewById(R.id.edt_note);
-        edtRegPhoneNumber = (EditText) getView().findViewById(R.id.edt_phoneNumber);
+        tvRegName = (TextView) getView().findViewById(R.id.RegName) ;
+        edtRegAdress = (EditText) getView().findViewById(R.id.edt_address) ;
+        edtRegNote = (EditText) getView().findViewById(R.id.edt_note) ;
+        edtRegPhoneNumber = (EditText) getView().findViewById(R.id.edt_phoneNumber) ;
 
-        spPrice = (Spinner) getView().findViewById(R.id.spiner_gia);
-        spDientich = (Spinner) getView().findViewById(R.id.spiner_dientich);
+        spPrice = (Spinner) getView().findViewById(R.id.spiner_gia) ;
+        spDientich = (Spinner) getView().findViewById(R.id.spiner_dientich) ;
 
     }
 
     @Override
     public void initComponents() {
-        getView().findViewById(R.id.btn_RegHome).setOnClickListener(this);
-        ;
+        getView().findViewById(R.id.btn_RegHome).setOnClickListener(this); ;
 
     }
 
     @Override
     public void setEvents() {
 
-        if (personName != null) {
-            tvRegName.setText(personName);
-        }
-        if (name != null) {
-            tvRegName.setText(name);
-        }
+//        if (personName != null) {
+//            tvRegName.setText(personName);
+//        }
+//        if (name != null) {
+//            tvRegName.setText(name);
+//        }
     }
 
     private void creaAdapterSpiner() {
@@ -116,12 +124,13 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onClick(View v) {
-        tvRegName = (TextView) getView().findViewById(R.id.RegName) ;
-        edtRegAdress = (EditText) getView().findViewById(R.id.edt_address) ;
-        edtRegNote = (EditText) getView().findViewById(R.id.edt_note) ;
-        edtRegPhoneNumber = (EditText) getView().findViewById(R.id.edt_phoneNumber) ;
+        String address = edtRegAdress.getText().toString();
+        String phoneNumber = edtRegPhoneNumber.getText().toString();
+        String price = spPrice.getSelectedItem().toString();
+        String area = spDientich.getSelectedItem().toString();
+        String info = edtRegNote.getText().toString();
+        InfomationRegister infomation = new InfomationRegister(address, phoneNumber, price, area, info, userId );
 
-        spPrice = (Spinner) getView().findViewById(R.id.spiner_gia) ;
-        spDientich = (Spinner) getView().findViewById(R.id.spiner_dientich) ;
+        FirebaseSever re = new FirebaseSever(getContext(), infomation);
     }
 }

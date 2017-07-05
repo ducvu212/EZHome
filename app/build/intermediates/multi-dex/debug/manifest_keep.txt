@@ -1,3 +1,0 @@
-# Referenced at D:\code\GitHub\EZHome\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:37
--keep class com.ezhometeam.common.App { <init>(...); }
-

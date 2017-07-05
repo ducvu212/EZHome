@@ -23,6 +23,7 @@ import android.view.View;
 
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
+import com.ezhometeam.interact.FirebaseSever;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,8 +56,11 @@ public class MapFragment extends SupportMapFragment implements
 
     private static final String TAG = MapFragment.class.getSimpleName();
     public static GoogleMap googleMap;
-    public static Marker marker;
     private boolean isFirstChangeLocation;
+    public static Marker marker;
+    private Polyline polyline;
+    private FirebaseSever sever;
+
     //lay dia chi vi tri thong latlong
     private Geocoder geocoder;
 
@@ -76,7 +81,7 @@ public class MapFragment extends SupportMapFragment implements
     private void initGoogle(GoogleMap googleMap) {
         //set up goole map
 
-        MapFragment.googleMap = googleMap;
+        this.googleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //set up UI
@@ -171,15 +176,15 @@ public class MapFragment extends SupportMapFragment implements
         Log.d(TAG, "location lat: " + location.getLatitude());
         Log.d(TAG, "location long: " + location.getLongitude());
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-
+        //co chuc nang di chuyen den vi tri position
+//        CameraPosition cameraPosition =
+//                new CameraPosition(latLng, 13, 0, 0) ;
+//        //dua camera position vao google map
+//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         if (!isFirstChangeLocation) {
             isFirstChangeLocation = true;
-            //co chuc nang di chuyen den vi tri position
-            CameraPosition cameraPosition =
-                    new CameraPosition(latLng, 15, 0, 0);
-            //dua camera position vao google map
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
             MarkerOptions options = new MarkerOptions();
             options.
                     icon(BitmapDescriptorFactory.
@@ -243,7 +248,6 @@ public class MapFragment extends SupportMapFragment implements
             dialog.setPositiveButton("Open", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
                     Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivityForResult(myIntent, 102);
                     //get gps
@@ -253,7 +257,6 @@ public class MapFragment extends SupportMapFragment implements
 
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
 
                 }
             });
@@ -287,7 +290,6 @@ public class MapFragment extends SupportMapFragment implements
 
 
     private void makerAdress() {
-
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         List<String> arrAdress = new ArrayList<>();
 
@@ -302,7 +304,7 @@ public class MapFragment extends SupportMapFragment implements
 
                 MarkerOptions options = new MarkerOptions();
                 List<List<Address>> addresses = new ArrayList<>();
-                Address address;
+                Address address = null;
                 try {
                     for (int i = 0; i < arrAdress.size(); i++) {
 

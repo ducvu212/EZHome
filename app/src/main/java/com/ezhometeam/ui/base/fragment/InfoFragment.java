@@ -45,6 +45,11 @@ public class InfoFragment extends BaseFragment {
     }
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     public int getLayoutMain() {
         return R.layout.info_fragment;
     }
@@ -55,6 +60,7 @@ public class InfoFragment extends BaseFragment {
         imgAva = (ImageView) getView().findViewById(R.id.InforAva);
         tvName = (TextView) getView().findViewById(R.id.InfoName);
         tvEmail = (TextView) getView().findViewById(R.id.InfoEmail);
+
     }
 
     @Override

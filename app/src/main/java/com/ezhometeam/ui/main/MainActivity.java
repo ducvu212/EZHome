@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
@@ -79,8 +80,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addConnectionCallbacks(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
                 .build();
-
+        mGoogleApiClient.connect();
 
         tvLoginGG.setOnClickListener(this);
 
@@ -219,22 +221,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             if (result.isSuccess()) {
 
                 GoogleSignInAccount acct = result.getSignInAccount();
+                People.LoadPeopleResult loadPeopleResult = null;
+
                 personName = acct.getDisplayName();
-                personGivenName = acct.getGivenName();
-                personFamilyName = acct.getFamilyName();
                 personEmail = acct.getEmail();
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
                 Log.d(TAG, String.valueOf(personPhoto));
                 Uri personPhoto = acct.getPhotoUrl();
-                personCover = personPhoto.getPath();
-//                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-//                if (person.hasCover()) {
-//                    Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
-//                    personCover = cover.getUrl();
-//
-//                    Log.d(TAG, cover.getUrl());
-//                }
+                personCover = personPhoto.toString();
+
+
+                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                if (person.hasCover()) {
+                    Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
+                    personCover = cover.getUrl();
+
+                    Log.d(TAG, cover.getUrl());
+                }
+
                 openMapActivity();
 
             } else {
@@ -252,41 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         if (!mGoogleApiClient.isConnecting() || !mGoogleApiClient.isConnected()) {
             mGoogleApiClient.connect();
         }
-//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-//        if (opr.isDone()) {
-//            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-//            // and the GoogleSignInResult will be available instantly. We can try and retrieve an
-//            // authentication code.
-//            Log.d(TAG, "Got cached sign-in");
-//            GoogleSignInResult result = opr.get();
-//            handleSignInResult(result);
-//        } else {
-//            // If the user has not previously signed in on this device or the sign-in has expired,
-//            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-//            // single sign-on will occur in this branch.
-//            final ProgressDialog progressDialog = new ProgressDialog(this);
-//            progressDialog.setMessage("Checking sign in state...");
-//            progressDialog.show();
-//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-//                @Override
-//                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-//                    progressDialog.dismiss();
-//                    handleSignInResult(googleSignInResult);
-//                }
-//            });
-//        }
-    }
 
-
-    private void handleSignInResult(GoogleSignInResult result) {
-
-        if (result.isSuccess()) {
-            acct = result.getSignInAccount();
-
-        } else {
-            // Signed out, show unauthenticated UI.
-
-        }
     }
 
     private void signIn() {

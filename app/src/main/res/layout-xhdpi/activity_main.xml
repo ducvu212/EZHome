@@ -39,7 +39,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="65dp"
             android:layout_marginTop="165dp"
             android:src="@drawable/ic_login_fb" />
 
@@ -61,7 +61,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="65dp"
             android:layout_marginTop="225dp"
             android:src="@drawable/ic_login_google_plus" />
 
@@ -72,7 +72,7 @@
             android:layout_marginTop="280dp"
             android:gravity="center_horizontal"
             android:text="Hoặc đăng nhập bằng tài khoản của bạn"
-            android:textColor="#888BAC"
+            android:textColor="#dacdcd"
             android:typeface="normal" />
 
 
@@ -84,14 +84,14 @@
             android:layout_marginTop="330dp"
             android:background="@drawable/shape"
             android:hint="Địa chỉ email của bạn"
-            android:paddingLeft="40dp"
+            android:paddingLeft="60dp"
             android:textColorHint="#888BAC"
             android:textSize="16sp" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="335dp"
             android:src="@drawable/ic_login_email" />
 
@@ -103,14 +103,14 @@
             android:layout_marginTop="375dp"
             android:background="@drawable/shape"
             android:hint="Mật khẩu của bạn"
-            android:paddingLeft="40dp"
+            android:paddingLeft="60dp"
             android:textColorHint="#888BAC"
             android:textSize="16sp" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="380dp"
             android:src="@drawable/ic_login_pass" />
 

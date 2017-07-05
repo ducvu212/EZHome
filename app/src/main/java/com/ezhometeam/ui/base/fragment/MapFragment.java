@@ -287,6 +287,7 @@ public class MapFragment extends SupportMapFragment implements
 
 
     private void makerAdress() {
+
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         List<String> arrAdress = new ArrayList<>();
 
@@ -301,7 +302,7 @@ public class MapFragment extends SupportMapFragment implements
 
                 MarkerOptions options = new MarkerOptions();
                 List<List<Address>> addresses = new ArrayList<>();
-                Address address = null;
+                Address address;
                 try {
                     for (int i = 0; i < arrAdress.size(); i++) {
 

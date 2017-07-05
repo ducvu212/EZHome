@@ -55,7 +55,6 @@ public class InfoFragment extends BaseFragment {
         imgAva = (ImageView) getView().findViewById(R.id.InforAva);
         tvName = (TextView) getView().findViewById(R.id.InfoName);
         tvEmail = (TextView) getView().findViewById(R.id.InfoEmail);
-
     }
 
     @Override

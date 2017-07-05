@@ -72,7 +72,7 @@
             android:layout_marginTop="280dp"
             android:gravity="center_horizontal"
             android:text="Hoặc đăng nhập bằng tài khoản của bạn"
-            android:textColor="#888BAC"
+            android:textColor="#dacdcd"
             android:typeface="normal" />
 
 

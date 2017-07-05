@@ -1,0 +1,4 @@
+#Tue Jul 04 21:41:46 ICT 2017
+base.0=D\:\\code\\GitHub\\EZHome\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7
+renamed.0=classes.dex
+file.0=D\:\\code\\GitHub\\EZHome\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7\\classes.dex

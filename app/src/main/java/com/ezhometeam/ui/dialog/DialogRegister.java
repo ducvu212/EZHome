@@ -1,5 +1,6 @@
 package com.ezhometeam.ui.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.Executor;
+import java.util.function.DoubleToIntFunction;
 
 
 /**
@@ -28,10 +30,12 @@ public class DialogRegister extends Dialog implements View.OnClickListener {
     private EditText edtConfirmPassword;
     private IRegister mInterf;
     private FirebaseAuth mAuth;
+    private Context mContext;
 
 
     public DialogRegister(@NonNull Context context, IRegister mInterf) {
         super(context);
+        mContext = context;
         this.mInterf = mInterf;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_quick_register);
@@ -86,7 +90,6 @@ public class DialogRegister extends Dialog implements View.OnClickListener {
 
         else {
             checkEmail();
-            dismiss();
         }
     }
 
@@ -94,25 +97,24 @@ public class DialogRegister extends Dialog implements View.OnClickListener {
         String email = edtUsername.getText().toString();
         String password = edtPassWord.getText().toString();
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            user.getEmail();
-                            Toast.makeText(getContext(), "Register succesfully", Toast.LENGTH_SHORT).show();
                             mInterf.onClickRegister(email, password);
+                            Toast.makeText(getContext(), "Register successfully", Toast.LENGTH_SHORT).show();
+                            dismiss();
 
                         } else {
+                            edtUsername.setError("Username invailid or exist");
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
                     }
                 });
+
     }
 
     public interface IRegister{

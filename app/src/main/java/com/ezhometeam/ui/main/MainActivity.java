@@ -2,12 +2,14 @@ package com.ezhometeam.ui.main;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +48,7 @@ import java.util.Arrays;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "Gallery";
 
     private CallbackManager callbackManager = CallbackManager.Factory.create();;
     private FacebookCallback<LoginResult> loginResult;
@@ -116,6 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         tvLoginFB.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         findViewById(R.id.tv_register).setOnClickListener(this);
+        findViewById(R.id.tv_forgot_pass).setOnClickListener(this);
     }
 
     private void validateServerClientID() {
@@ -339,15 +342,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.tv_register:
                 showDialogRegister();
                 break;
+
             case R.id.btn_login:
                 FirebaseSever sv = new FirebaseSever(getBaseContext());
                 String email = mEdtUser.getText().toString();
                 String pass = mEdtPass.getText().toString();
-                if(sv.signInAcc(email, pass)){
-                    idUser = email;
-                    openMapActivity();
-                }
+                sv.signInAcc(email, pass, new FirebaseSever.ISignIn() {
+                    @Override
+                    public void afterSignIn() {
+                        idUser = email;
+                        openMapActivity();
+                    }
+                });
                 break;
+
+            case R.id.tv_forgot_pass:
+                FirebaseSever svs = new FirebaseSever(getBaseContext());
+                svs.forgotPass(mEdtUser.getText().toString());
+                Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+
             default:
                 break;
         }
@@ -355,9 +368,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
 
     private void showDialogRegister() {
-        DialogRegister dialog = new DialogRegister(getBaseContext(), new DialogRegister.IRegister() {
+        DialogRegister dialog = new DialogRegister(this, new DialogRegister.IRegister() {
             @Override
             public void onClickRegister(String user, String password) {
+                tips();
                 mEdtUser.setText(user);
                 mEdtPass.setText(password);
                 idUser = user;
@@ -365,18 +379,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         });
 
         DisplayMetrics display = new DisplayMetrics();
-        ((Activity) getBaseContext()).getWindowManager().getDefaultDisplay().getMetrics(display);
+        getWindowManager().getDefaultDisplay().getMetrics(display);
         int width = display.widthPixels;
         int height = display.heightPixels;
 
-        dialog.getWindow().setLayout(3*width/5, ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(4*width/5, ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+    }
+
+    private void tips(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("Verify email to protect your account \nThank you!");
+        dialog.setTitle("Tips");
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
     private void openMapActivity() {
 
         Intent intent = new Intent(this, Main2Activity.class);
-        intent.putExtra("MAIL", idUser);
+        intent.putExtra("EMAIL", idUser);
         startActivity(intent);
         finish();
 

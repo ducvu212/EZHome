@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,7 @@ public class FirebaseSever {
     private List<String> address;
     private AdapterHome adapter;
     private Context mContext;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public FirebaseSever(Context context, InfomationRegister info) {
         register(context, info);
@@ -143,6 +145,9 @@ public class FirebaseSever {
                         + "Thông tin : " + listInfo.get(position).getInfomation() + "\n"
                         + "Điện thoại: " + listInfo.get(position).getPhone() + "\n";
 
+                //link anh
+                listInfo.get(position).getLinkImg();
+
                 HomeInfomationDialog dialog = new HomeInfomationDialog(mContext, conent );
                 DisplayMetrics display = new DisplayMetrics();
                 ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(display);
@@ -156,23 +161,33 @@ public class FirebaseSever {
         }
     }
 
-    public boolean signInAcc(String email, String pass) {
-        final boolean[] re = new boolean[1];
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public void signInAcc(String email, String pass, ISignIn mInterf) {
+        signIn(email, pass, mInterf);
+    }
+
+    public void forgotPass(String email){
+//        mAuth.sendPasswordResetEmail(email);
+        mAuth.sendPasswordResetEmail(email);
+    }
+
+    private void signIn(String email, String pass, final ISignIn mInterf) {
         mAuth.signInWithEmailAndPassword( email, pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            re[0] = true;
                             Toast.makeText(mContext, "Succesfully", Toast.LENGTH_SHORT).show();
+                            mInterf.afterSignIn();
                         }else {
-                            re[0] = false;
                             Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        return re[0];
+    }
+
+
+    public interface ISignIn{
+        void afterSignIn();
     }
 
 }

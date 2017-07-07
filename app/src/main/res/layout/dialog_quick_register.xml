@@ -61,18 +61,19 @@
         android:paddingRight="24dp">
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="REGISTER" />
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:text="CANCEL" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:text="REGISTER" />
 
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.ezhometeam.ui.base.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -13,27 +14,13 @@ import android.widget.TextView;
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
 import com.ezhometeam.interact.FirebaseSever;
+import com.ezhometeam.ui.base.activity.RegisterInformationActivity;
 
 
-public class RegisterFragment extends BaseFragment implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
-
-    private EditText edtRegJob, edtRegAdress, edtRegPhoneNumber, edtRegNote ;
-    private TextView tvRegName ;
+public class RegisterFragment extends BaseFragment {
     private String userId;
-    private Spinner spPrice, spDientich ;
-    private String [] arrPrice = {"< 1.000.00", "1.000.000-2.000.000",
-        "2.000.000-3.000.000", "3.000.000-4.000.000", "> 4.000.000"} ;
-    private String [] arrDientich = {"< 15M", "15-30M", "30-60M", "> 60M"} ;
-
     public RegisterFragment(String user) {
         userId = user;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findViewByIds();
-        creaAdapterSpiner();
     }
 
     @Override
@@ -43,25 +30,19 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public int getLayoutMain() {
-        return R.layout.fragment_register;
+        Intent i = new Intent(getActivity(), RegisterInformationActivity.class);
+        i.putExtra("EMAIL", userId);
+        getActivity().startActivity(i);
+        return R.layout.layout_re;
     }
 
     @Override
     public void findViewByIds() {
 
-        tvRegName = (TextView) getView().findViewById(R.id.RegName) ;
-        edtRegAdress = (EditText) getView().findViewById(R.id.edt_address) ;
-        edtRegNote = (EditText) getView().findViewById(R.id.edt_note) ;
-        edtRegPhoneNumber = (EditText) getView().findViewById(R.id.edt_phoneNumber) ;
-
-        spPrice = (Spinner) getView().findViewById(R.id.spiner_gia) ;
-        spDientich = (Spinner) getView().findViewById(R.id.spiner_dientich) ;
-
     }
 
     @Override
     public void initComponents() {
-        getView().findViewById(R.id.btn_RegHome).setOnClickListener(this); ;
 
     }
 
@@ -76,61 +57,4 @@ public class RegisterFragment extends BaseFragment implements AdapterView.OnItem
 //        }
     }
 
-    private void creaAdapterSpiner() {
-        ArrayAdapter<String> adapterPrice
-                = new ArrayAdapter<>(getActivity(), R.layout.spinner_custom, arrPrice);
-        ArrayAdapter<String> adapterDientich
-                = new ArrayAdapter<>(getActivity(), R.layout.spinner_custom, arrDientich);
-
-        adapterPrice.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        adapterDientich.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-
-        spPrice.setAdapter(adapterPrice);
-        spDientich.setAdapter(adapterDientich);
-
-        spPrice.setOnItemSelectedListener(this);
-        spDientich.setOnItemSelectedListener(this);
-
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        switch (view.getId()) {
-
-            case R.id.spiner_gia:
-
-                break;
-
-            case R.id.spiner_dientich:
-
-                break;
-
-            default:
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        String address = edtRegAdress.getText().toString();
-        String phoneNumber = edtRegPhoneNumber.getText().toString();
-        String price = spPrice.getSelectedItem().toString();
-        String area = spDientich.getSelectedItem().toString();
-        String info = edtRegNote.getText().toString();
-        InfomationRegister infomation = new InfomationRegister(address, phoneNumber, price, area, info, userId );
-
-        FirebaseSever re = new FirebaseSever(getContext(), infomation);
-    }
 }

@@ -62,7 +62,7 @@ import static com.ezhometeam.ui.main.MainActivity.personEmail;
 import static com.ezhometeam.ui.main.MainActivity.personName;
 import static com.ezhometeam.ui.main.MainActivity.personPhoto;
 
-//import static com.ezhometeam.ui.main.MainActivity.mGoogleApiClient;
+//import static com.ezhometeam.ui.main.GalleryActivity.mGoogleApiClient;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
@@ -78,7 +78,7 @@ public class Main2Activity extends AppCompatActivity
     private ImageView imgSearch;
     private GoogleApiClient mGoogleApiClient;
     private boolean isLogout;
-    private String user;
+    private String userId;
 
 
     @Override
@@ -86,7 +86,7 @@ public class Main2Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Intent intent = getIntent();
-        user = intent.getStringExtra("MAIL");
+        userId = intent.getStringExtra("EMAIL");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         locationButton = (ImageView) findViewById(R.id.location);
@@ -330,7 +330,7 @@ public class Main2Activity extends AppCompatActivity
             startFragments(infoFragment);
 
         } else if (id == R.id.reg) {
-            registerFragment = new RegisterFragment(user);
+            registerFragment = new RegisterFragment(userId);
             startFragments(registerFragment);
 
         } else if (id == R.id.logout) {

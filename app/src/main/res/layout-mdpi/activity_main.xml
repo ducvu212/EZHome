@@ -134,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="730dp"
+            android:id="@+id/tv_forgot_pass"
             android:text="Quên mật khẩu?"
             android:textSize="20sp"
             android:textColor="#888BAC" />

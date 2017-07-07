@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:gravity="center"
             android:text="Đăng nhập"
             android:textColor="#fff"
@@ -28,7 +28,7 @@
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="130dp"
             android:background="#3b5998"
             android:gravity="center"
             android:text="FaceBook"
@@ -39,8 +39,8 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="165dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="135dp"
             android:src="@drawable/ic_login_fb" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="190dp"
             android:background="#D44034"
             android:clickable="false"
             android:gravity="center"
@@ -61,18 +61,18 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="225dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="195dp"
             android:src="@drawable/ic_login_google_plus" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="250dp"
             android:gravity="center_horizontal"
             android:text="Hoặc đăng nhập bằng tài khoản của bạn"
-            android:textColor="#888BAC"
+            android:textColor="#dacdcd"
             android:typeface="normal" />
 
 
@@ -81,18 +81,18 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="330dp"
+            android:layout_marginTop="300dp"
             android:background="@drawable/shape"
             android:hint="Địa chỉ email của bạn"
-            android:paddingLeft="40dp"
+            android:paddingLeft="60dp"
             android:textColorHint="#888BAC"
             android:textSize="16sp" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="335dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="305dp"
             android:src="@drawable/ic_login_email" />
 
         <EditText
@@ -100,18 +100,18 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="375dp"
+            android:layout_marginTop="345dp"
             android:background="@drawable/shape"
             android:hint="Mật khẩu của bạn"
-            android:paddingLeft="40dp"
+            android:paddingLeft="60dp"
             android:textColorHint="#888BAC"
             android:textSize="16sp" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="380dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="350dp"
             android:src="@drawable/ic_login_pass" />
 
         <Button
@@ -121,7 +121,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="430dp"
+            android:layout_marginTop="400dp"
             android:gravity="center"
             android:text="Đăng nhập"
             android:textAllCaps="false" />
@@ -130,8 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="490dp"
-            android:id="@+id/tv_forgot_pass"
+            android:layout_marginTop="460dp"
             android:text="Quên mật khẩu?"
             android:textColor="#888BAC" />
 
@@ -139,9 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="530dp"
+            android:layout_marginTop="500dp"
             android:gravity="center"
-            android:id="@+id/tv_register"
             android:text="Đăng ký"
             android:textColor="#fff"
             android:textStyle="bold" />

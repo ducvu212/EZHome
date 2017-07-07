@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_centerVertical="true"
+    android:minHeight="300dp"
+    android:minWidth="300dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="Tìm Kiếm"
+        android:textSize="30sp"
+        android:textColor="@color/dc_white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:layout_width="300dp"
+        android:layout_height="80dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:text="Thành Phố : "
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_thanh_pho"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:text="Quận, Huyện : "
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_quan_huyen"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/shape" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:text="Diện tích: "
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_dien_tich"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/shape" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:text="Giá tiền: "
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_gia_tien"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:background="@drawable/shape" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="Search" />
+
+
+</LinearLayout>

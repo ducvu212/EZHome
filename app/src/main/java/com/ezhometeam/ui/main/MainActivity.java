@@ -1,28 +1,20 @@
 package com.ezhometeam.ui.main;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezhometeam.R;
-import com.ezhometeam.interact.FirebaseSever;
 import com.ezhometeam.ui.base.activity.BaseActivity;
 import com.ezhometeam.ui.base.activity.Main2Activity;
-import com.ezhometeam.ui.dialog.DialogRegister;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,6 +29,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.People;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 import org.json.JSONException;
 
@@ -48,9 +43,9 @@ import java.util.Arrays;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
-    private static final String TAG = "Gallery";
+    private static final String TAG = "MainActivity";
 
-    private CallbackManager callbackManager = CallbackManager.Factory.create();;
+    private CallbackManager callbackManager;
     private FacebookCallback<LoginResult> loginResult;
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
@@ -62,19 +57,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public static GoogleSignInAccount acct;
     public static String name, id, email, link, coverPicUrl;
     public static URL imageURL;
-    private String idUser;
-    private EditText mEdtUser, mEdtPass;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         validateServerClientID();
         initFaceBook();
         findViewByIds();
         hideProgressDialog();
+        LoginManager.getInstance().registerCallback(callbackManager, loginResult);
+//        String SCOPE = "audience:server:client_id:" + SERVER_CLIENT_ID
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .build();
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addConnectionCallbacks(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
+                .build();
+        mGoogleApiClient.connect();
+
+        tvLoginGG.setOnClickListener(this);
+
+        tvLoginFB.setOnClickListener(this);
 
 //        Log.d(TAG, printKeyHash(this));
 
@@ -90,35 +102,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         tvLoginFB = (TextView) findViewById(R.id.btnLoginFb);
         tvLoginGG = (TextView) findViewById(R.id.btnLoginGG);
         btnLogin = (Button) findViewById(R.id.btn_login);
-        mEdtPass = (EditText) findViewById(R.id.edt_pass);
-        mEdtUser = (EditText) findViewById(R.id.edt_user);
 
     }
 
     @Override
     public void initComponents() {
-        LoginManager.getInstance().registerCallback(callbackManager, loginResult);
-//        String SCOPE = "audience:server:client_id:" + SERVER_CLIENT_ID
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .requestProfile()
-                .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addConnectionCallbacks(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
     }
 
     @Override
     public void setEvents() {
-        tvLoginGG.setOnClickListener(this);
-        tvLoginFB.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
-        findViewById(R.id.tv_register).setOnClickListener(this);
-        findViewById(R.id.tv_forgot_pass).setOnClickListener(this);
+
     }
 
     private void validateServerClientID() {
@@ -166,7 +160,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                             name = object.optString(getString(R.string.name));
                             id = object.optString(getString(R.string.id));
                             email = object.optString(getString(R.string.email));
-                            idUser = email;
                             link = object.optString(getString(R.string.link));
                             imageURL = extractFacebookIcon(id);
                             Log.d(TAG, name + "\n" + imageURL + "\n" + coverPicUrl);
@@ -228,23 +221,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             if (result.isSuccess()) {
 
                 GoogleSignInAccount acct = result.getSignInAccount();
+                People.LoadPeopleResult loadPeopleResult = null;
+
                 personName = acct.getDisplayName();
-                personGivenName = acct.getGivenName();
-                personFamilyName = acct.getFamilyName();
                 personEmail = acct.getEmail();
-                idUser = acct.getEmail();
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
                 Log.d(TAG, String.valueOf(personPhoto));
                 Uri personPhoto = acct.getPhotoUrl();
-                personCover = personPhoto.getPath();
-//                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-//                if (person.hasCover()) {
-//                    Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
-//                    personCover = cover.getUrl();
-//
-//                    Log.d(TAG, cover.getUrl());
-//                }
+                personCover = personPhoto.toString();
+
+
+                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                if (person.hasCover()) {
+                    Person.Cover.CoverPhoto cover = person.getCover().getCoverPhoto();
+                    personCover = cover.getUrl();
+
+                    Log.d(TAG, cover.getUrl());
+                }
+
                 openMapActivity();
 
             } else {
@@ -262,41 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         if (!mGoogleApiClient.isConnecting() || !mGoogleApiClient.isConnected()) {
             mGoogleApiClient.connect();
         }
-//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-//        if (opr.isDone()) {
-//            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-//            // and the GoogleSignInResult will be available instantly. We can try and retrieve an
-//            // authentication code.
-//            Log.d(TAG, "Got cached sign-in");
-//            GoogleSignInResult result = opr.get();
-//            handleSignInResult(result);
-//        } else {
-//            // If the user has not previously signed in on this device or the sign-in has expired,
-//            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-//            // single sign-on will occur in this branch.
-//            final ProgressDialog progressDialog = new ProgressDialog(this);
-//            progressDialog.setMessage("Checking sign in state...");
-//            progressDialog.show();
-//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-//                @Override
-//                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-//                    progressDialog.dismiss();
-//                    handleSignInResult(googleSignInResult);
-//                }
-//            });
-//        }
-    }
 
-
-    private void handleSignInResult(GoogleSignInResult result) {
-
-        if (result.isSuccess()) {
-            acct = result.getSignInAccount();
-
-        } else {
-            // Signed out, show unauthenticated UI.
-
-        }
     }
 
     private void signIn() {
@@ -338,73 +299,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.btnLoginFb:
                 loginFaceBook();
                 break;
-
-            case R.id.tv_register:
-                showDialogRegister();
-                break;
-
-            case R.id.btn_login:
-                FirebaseSever sv = new FirebaseSever(getBaseContext());
-                String email = mEdtUser.getText().toString();
-                String pass = mEdtPass.getText().toString();
-                sv.signInAcc(email, pass, new FirebaseSever.ISignIn() {
-                    @Override
-                    public void afterSignIn() {
-                        idUser = email;
-                        openMapActivity();
-                    }
-                });
-                break;
-
-            case R.id.tv_forgot_pass:
-                FirebaseSever svs = new FirebaseSever(getBaseContext());
-                svs.forgotPass(mEdtUser.getText().toString());
-                Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-
             default:
-                break;
         }
-    }
-
-
-    private void showDialogRegister() {
-        DialogRegister dialog = new DialogRegister(this, new DialogRegister.IRegister() {
-            @Override
-            public void onClickRegister(String user, String password) {
-                tips();
-                mEdtUser.setText(user);
-                mEdtPass.setText(password);
-                idUser = user;
-            }
-        });
-
-        DisplayMetrics display = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(display);
-        int width = display.widthPixels;
-        int height = display.heightPixels;
-
-        dialog.getWindow().setLayout(4*width/5, ActionBar.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-
-    }
-
-    private void tips(){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Verify email to protect your account \nThank you!");
-        dialog.setTitle("Tips");
-        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
     }
 
     private void openMapActivity() {
 
         Intent intent = new Intent(this, Main2Activity.class);
-        intent.putExtra("EMAIL", idUser);
         startActivity(intent);
         finish();
 

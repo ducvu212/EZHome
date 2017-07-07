@@ -23,7 +23,6 @@ import android.view.View;
 
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
-import com.ezhometeam.interact.FirebaseSever;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,7 +32,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,13 +54,11 @@ public class MapFragment extends SupportMapFragment implements
 
     private static final String TAG = MapFragment.class.getSimpleName();
     public static GoogleMap googleMap;
-    private boolean isFirstChangeLocation;
     public static Marker marker;
-    private Polyline polyline;
-    private FirebaseSever sever;
-
+    private boolean isFirstChangeLocation;
     //lay dia chi vi tri thong latlong
     private Geocoder geocoder;
+    private double longitude, latitude;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -81,13 +77,14 @@ public class MapFragment extends SupportMapFragment implements
     private void initGoogle(GoogleMap googleMap) {
         //set up goole map
 
-        this.googleMap = googleMap;
+        MapFragment.googleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //set up UI
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
 
         //lay vi tri hien tai cua dien thoai
         //truoc khi lay vi tri dien thoai phai xin quyen
@@ -176,19 +173,19 @@ public class MapFragment extends SupportMapFragment implements
         Log.d(TAG, "location lat: " + location.getLatitude());
         Log.d(TAG, "location long: " + location.getLongitude());
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        //co chuc nang di chuyen den vi tri position
-//        CameraPosition cameraPosition =
-//                new CameraPosition(latLng, 13, 0, 0) ;
-//        //dua camera position vao google map
-//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
         if (!isFirstChangeLocation) {
             isFirstChangeLocation = true;
-
-
+            //co chuc nang di chuyen den vi tri position
+            CameraPosition cameraPosition =
+                    new CameraPosition(latLng, 15, 0, 0);
+            //dua camera position vao google map
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             MarkerOptions options = new MarkerOptions();
             options.
                     icon(BitmapDescriptorFactory.
-                            defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                            defaultMarker(BitmapDescriptorFactory.HUE_RED));
             options.position(latLng);
             options.title("My location");
             options.snippet(getLocation(latLng));
@@ -248,6 +245,7 @@ public class MapFragment extends SupportMapFragment implements
             dialog.setPositiveButton("Open", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
                     Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivityForResult(myIntent, 102);
                     //get gps
@@ -257,6 +255,7 @@ public class MapFragment extends SupportMapFragment implements
 
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
 
                 }
             });
@@ -292,35 +291,40 @@ public class MapFragment extends SupportMapFragment implements
     private void makerAdress() {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         List<String> arrAdress = new ArrayList<>();
+        List<String> price = new ArrayList<>();
 
         myRef.child("Master").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                InfomationRegister infomation = dataSnapshot.getValue(InfomationRegister.class);
-                arrAdress.add(infomation.getAddress());
-                Log.d("Info", infomation.getAddress() + " " + arrAdress.size());
 
-                Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
-
-                MarkerOptions options = new MarkerOptions();
-                List<List<Address>> addresses = new ArrayList<>();
-                Address address = null;
                 try {
+                    InfomationRegister infomation = dataSnapshot.getValue(InfomationRegister.class);
+                    arrAdress.add(infomation.getAddress());
+                    price.add(infomation.getPrice()) ;
+                    Log.d("Info", arrAdress.get(0) + " " + arrAdress.size());
+
+                    Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+                    MarkerOptions options = new MarkerOptions();
+                    List<List<Address>> addresses = new ArrayList<>();
+                    Address address;
                     for (int i = 0; i < arrAdress.size(); i++) {
 
                         addresses.add(geocoder.getFromLocationName(arrAdress.get(i), 1));
-                        address = addresses.get(i).get(0);
-                        double longitude = address.getLongitude();
-                        double latitude = address.getLatitude();
-                        Log.d("Adres", arrAdress.size() + "");
-                        Log.d("Adres", latitude + "\n" + longitude);
+                        Log.d("TAGG", arrAdress.get(i));
+                        address  = addresses.get(i).get(0);
+                        longitude = address.getLongitude();
+                        Log.d("TAGG", address.getLongitude() + "") ;
+                        latitude = address.getLatitude();
+                        Log.d("Address", arrAdress.size() + "");
+                        Log.d("Address", latitude + "\n" + longitude);
 
                         LatLng latLng = new LatLng(latitude, longitude);
                         options.
                                 icon(BitmapDescriptorFactory.
-                                        defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                                        defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         options.position(latLng);
-                        options.title("My location");
+                        options.title(price.get(i) + " ");
                         options.snippet(arrAdress.get(i));
                         marker = googleMap.addMarker(options);
                     }

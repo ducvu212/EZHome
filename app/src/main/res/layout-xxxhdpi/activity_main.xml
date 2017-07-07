@@ -135,7 +135,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="550dp"
-            android:id="@+id/tv_forgot_pass"
             android:text="Quên mật khẩu?"
             android:textColor="#888BAC" />
 
@@ -146,7 +145,6 @@
             android:layout_marginTop="610dp"
             android:gravity="center"
             android:text="Đăng ký"
-            android:id="@+id/tv_register"
             android:textColor="#fff"
             android:textStyle="bold" />
 

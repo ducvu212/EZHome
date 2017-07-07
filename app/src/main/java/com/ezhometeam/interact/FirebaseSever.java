@@ -3,7 +3,6 @@ package com.ezhometeam.interact;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -16,11 +15,6 @@ import android.widget.Toast;
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
 import com.ezhometeam.ui.dialog.HomeInfomationDialog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +34,6 @@ public class FirebaseSever {
     private List<String> address;
     private AdapterHome adapter;
     private Context mContext;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public FirebaseSever(Context context, InfomationRegister info) {
         register(context, info);
@@ -54,7 +47,6 @@ public class FirebaseSever {
         listInfo = new ArrayList<>();
         address = new ArrayList<>();
     }
-
 
     private void register(Context context, InfomationRegister info){
         myRef.child("Master").push().setValue(info, new DatabaseReference.CompletionListener() {
@@ -145,9 +137,6 @@ public class FirebaseSever {
                         + "Thông tin : " + listInfo.get(position).getInfomation() + "\n"
                         + "Điện thoại: " + listInfo.get(position).getPhone() + "\n";
 
-                //link anh
-                listInfo.get(position).getLinkImg();
-
                 HomeInfomationDialog dialog = new HomeInfomationDialog(mContext, conent );
                 DisplayMetrics display = new DisplayMetrics();
                 ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(display);
@@ -160,34 +149,4 @@ public class FirebaseSever {
             }
         }
     }
-
-    public void signInAcc(String email, String pass, ISignIn mInterf) {
-        signIn(email, pass, mInterf);
-    }
-
-    public void forgotPass(String email){
-//        mAuth.sendPasswordResetEmail(email);
-        mAuth.sendPasswordResetEmail(email);
-    }
-
-    private void signIn(String email, String pass, final ISignIn mInterf) {
-        mAuth.signInWithEmailAndPassword( email, pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(mContext, "Succesfully", Toast.LENGTH_SHORT).show();
-                            mInterf.afterSignIn();
-                        }else {
-                            Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-
-    public interface ISignIn{
-        void afterSignIn();
-    }
-
 }

@@ -8,60 +8,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:282684931826:android:0a01e3604639d384",
-        "android_client_info": {
-          "package_name": "com.example.minhd.ezhome"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "282684931826-elk3dg8jmqbsqjca8hib9109c1bvv2hj.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "282684931826-g4ui0vi6126qquf72gdneh0921vssm93.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.minhd.ezhome",
-            "certificate_hash": "b0cc475f7f383af07e8b35d51b833a162d569234"
-          }
-        },
-        {
-          "client_id": "282684931826-1omiemr3pfr1tqvsk547f2ktsv3e96ps.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCVu_g9BH90uSzimOtQLUHZCKWOtP7WVjQ"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "282684931826-elk3dg8jmqbsqjca8hib9109c1bvv2hj.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:282684931826:android:f4a1cfec59c66586",
         "android_client_info": {
           "package_name": "com.ezhometeam"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "282684931826-u0n2iputgvi9221vhjlf9omucm93rn0g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ezhometeam",
+            "certificate_hash": "10c49b7b3499d29359b1caedab0904696af8b78d"
+          }
+        },
+        {
+          "client_id": "282684931826-7r7iqg9bi8hdme1ebtrt99p9dpqagcih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ezhometeam",
+            "certificate_hash": "9386310f078357c885f1458a6b1adb3dc5d4f7d2"
+          }
+        },
         {
           "client_id": "282684931826-alhhh0n0eto0aqt9637dc0kjpdjsiee2.apps.googleusercontent.com",
           "client_type": 1,

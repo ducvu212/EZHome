@@ -20,6 +20,9 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void findViewByIds() {
+        lvInfo = (RecyclerView) getView().findViewById(R.id.lv_phong_tro);
+        sever = new FirebaseSever(getContext());
+        sever.getPhongTro(lvInfo);
 
     }
 
@@ -34,8 +37,4 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onBackPressed() {
-
-    }
 }

@@ -101,7 +101,7 @@
         android:textSize="14sp" />
 
     <Spinner
-        android:id="@+id/spiner_gia"
+        android:id="@+id/spiner_ReggiaTien"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -123,7 +123,7 @@
         android:textSize="14sp" />
 
     <Spinner
-        android:id="@+id/spiner_dientich"
+        android:id="@+id/spiner_RegdienTich"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

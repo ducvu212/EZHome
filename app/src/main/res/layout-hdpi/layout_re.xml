@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/reg"
+    android:background="@drawable/bgr_regis">
+
+    <Button
+        android:id="@+id/btn_dang_ki_nha_tro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:background="@color/blue_main"
+        android:gravity="center"
+        android:text="Đăng ký"
+        android:textColor="@color/white" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_above="@+id/btn_dang_ki_nha_tro"
+        android:layout_marginBottom="16dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:orientation="vertical"
+                android:weightSum="7">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Thành Phố : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_thanh_pho"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Quận, huyện : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_quan_huyen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Địa chỉ : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/edt_dia_chi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Diện tích: "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_dien_tich"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Giá tiền : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_gia_tien"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Liên hệ : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/edt_sdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="24dp"
+                        android:text="Ghi chú : "
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/edt_ghi_chu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:text="Ảnh kèm theo "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <ImageView
+                    android:id="@+id/iv_storage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/ic_sd_storage_blue_900_48dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="center"
+                    android:text="hoặc"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_linked_camera_blue_900_48dp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/tv_Path"
+                android:scaleType="centerCrop"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="#ECEFF1" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

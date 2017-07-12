@@ -1,0 +1,12 @@
+package com.sinch.android.rtc.internal.gen;
+
+public final class SinchVersion {
+
+	/* DO NOT CHANGE THIS FILE, IT WILL BE AUTO-GENERATED WITH MAVEN */
+	
+	public final static String VERSION = "@rebtelversion@";
+	public final static String FULL_VERSION = "@rebtelfullversion@";
+	public final static String REVISION = "@rebtelrevision@";
+	public final static String FULL_VERSION_WITH_REVISION = FULL_VERSION + "-" + REVISION;
+
+}

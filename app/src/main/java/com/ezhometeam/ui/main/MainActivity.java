@@ -1,20 +1,28 @@
 package com.ezhometeam.ui.main;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezhometeam.R;
+import com.ezhometeam.interact.FirebaseSever;
 import com.ezhometeam.ui.base.activity.BaseActivity;
 import com.ezhometeam.ui.base.activity.Main2Activity;
+import com.ezhometeam.ui.dialog.DialogForgotPassword;
+import com.ezhometeam.ui.dialog.DialogRegister;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -57,6 +65,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public static GoogleSignInAccount acct;
     public static String name, id, email, link, coverPicUrl;
     public static URL imageURL;
+    private String idUser;
+    private EditText mEdtUser, mEdtPass;
 
 
     @Override
@@ -84,9 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .build();
         mGoogleApiClient.connect();
 
-        tvLoginGG.setOnClickListener(this);
 
-        tvLoginFB.setOnClickListener(this);
 
 //        Log.d(TAG, printKeyHash(this));
 
@@ -102,6 +110,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         tvLoginFB = (TextView) findViewById(R.id.btnLoginFb);
         tvLoginGG = (TextView) findViewById(R.id.btnLoginGG);
         btnLogin = (Button) findViewById(R.id.btn_login);
+        mEdtPass = (EditText) findViewById(R.id.edt_pass);
+        mEdtUser = (EditText) findViewById(R.id.edt_user);
 
     }
 
@@ -112,7 +122,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void setEvents() {
-
+        tvLoginGG.setOnClickListener(this);
+        tvLoginFB.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        findViewById(R.id.tv_register).setOnClickListener(this);
+        findViewById(R.id.tv_forgot_pass).setOnClickListener(this);
     }
 
     private void validateServerClientID() {
@@ -160,6 +174,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                             name = object.optString(getString(R.string.name));
                             id = object.optString(getString(R.string.id));
                             email = object.optString(getString(R.string.email));
+                            idUser = email;
                             link = object.optString(getString(R.string.link));
                             imageURL = extractFacebookIcon(id);
                             Log.d(TAG, name + "\n" + imageURL + "\n" + coverPicUrl);
@@ -225,6 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
                 personName = acct.getDisplayName();
                 personEmail = acct.getEmail();
+                idUser = acct.getEmail();
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
                 Log.d(TAG, String.valueOf(personPhoto));
@@ -299,13 +315,97 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.btnLoginFb:
                 loginFaceBook();
                 break;
+
+            case R.id.tv_register:
+                showDialogRegister();
+                break;
+
+            case R.id.btn_login:
+                if (0 == mEdtPass.getText().toString().trim().length()){
+                    mEdtPass.setError("Can not empty");
+                }
+                else if (0 == mEdtUser.getText().toString().trim().length()) {
+                    mEdtUser.setError("Can not empty");
+                }
+                else {
+                    FirebaseSever sv = new FirebaseSever(getBaseContext());
+                    String email = mEdtUser.getText().toString();
+                    String pass = mEdtPass.getText().toString();
+                    sv.signInAcc(email, pass, new FirebaseSever.ISignIn() {
+                        @Override
+                        public void afterSignIn() {
+                            idUser = email;
+                            openMapActivity();
+                        }
+                    });
+                }
+                break;
+
+            case R.id.tv_forgot_pass:
+                showDialogForgotPassword();
+
+
             default:
+                break;
         }
+    }
+
+    private void showDialogForgotPassword() {
+        FirebaseSever svs = new FirebaseSever(this);
+        DialogForgotPassword dialogForgotPassword = new DialogForgotPassword(this, new DialogForgotPassword.IForgot() {
+            @Override
+            public void onClickSend(String user) {
+                svs.forgotPass(user);
+                tips("Check your Email to reset your account \nThank you!");
+            }
+        });
+        DisplayMetrics display = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(display);
+        int width = display.widthPixels;
+
+        dialogForgotPassword.getWindow().setLayout(4*width/5, ActionBar.LayoutParams.WRAP_CONTENT);
+        dialogForgotPassword.show();
+    }
+
+
+    private void showDialogRegister() {
+        DialogRegister dialog = new DialogRegister(this, new DialogRegister.IRegister() {
+            @Override
+            public void onClickRegister(String user, String password) {
+                tips("Verify email to protect your account \nThank you!");
+                mEdtUser.setText(user);
+                mEdtPass.setText(password);
+                idUser = user;
+            }
+        });
+
+        DisplayMetrics display = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(display);
+        int width = display.widthPixels;
+        int height = display.heightPixels;
+
+        dialog.getWindow().setLayout(4*width/5, ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+    }
+
+    private void tips(String message){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage(message);
+        dialog.setTitle("Tips");
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void openMapActivity() {
 
         Intent intent = new Intent(this, Main2Activity.class);
+        intent.putExtra("EMAIL", idUser);
         startActivity(intent);
         finish();
 

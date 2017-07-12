@@ -1,5 +1,6 @@
 package com.ezhometeam.ui.base.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.ezhometeam.R;
@@ -22,7 +23,10 @@ public class HomeFragment extends BaseFragment {
     public void findViewByIds() {
         lvInfo = (RecyclerView) getView().findViewById(R.id.lv_phong_tro);
         sever = new FirebaseSever(getContext());
-        sever.getPhongTro(lvInfo);
+        Bundle bundle = this.getArguments();
+        String place = bundle.getString("PLACE");
+
+        sever.getPhongTro(lvInfo, place);
 
     }
 

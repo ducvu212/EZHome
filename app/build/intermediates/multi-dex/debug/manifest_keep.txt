@@ -1,0 +1,3 @@
+# Referenced at C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:38
+-keep class com.ezhometeam.common.App { <init>(...); }
+

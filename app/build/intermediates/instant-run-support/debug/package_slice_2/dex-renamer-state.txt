@@ -1,0 +1,4 @@
+#Sat Jul 08 11:24:31 ICT 2017
+base.0=C\:\\Users\\minhd\\Desktop\\New-folder_2\\New-folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+renamed.0=classes.dex
+file.0=C\:\\Users\\minhd\\Desktop\\New-folder_2\\New-folder\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3\\classes.dex

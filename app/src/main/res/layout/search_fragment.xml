@@ -53,6 +53,7 @@
             android:textSize="14sp" />
 
         <Spinner
+            android:gravity="center"
             android:id="@+id/spinner_quan_huyen"
             android:layout_width="160dp"
             android:layout_height="wrap_content"

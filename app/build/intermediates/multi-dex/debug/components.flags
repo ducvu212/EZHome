@@ -1,0 +1,91 @@
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\48'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\0.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\1.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\2.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\3.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\4.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\5.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\6.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\7.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\8.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\9.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\10.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\11.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\12.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\13.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\14.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\15.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\16.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\17.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\18.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\19.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\20.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\21.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\22.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\23.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\24.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\25.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\26.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\27.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\28.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\29.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\30.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\31.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\32.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\33.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\34.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\35.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\36.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\37.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\38.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\39.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\40.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\41.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\42.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\43.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\44.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\45.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\46.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\transforms\desugar\debug\47.jar'
+-injars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\processing-tools\runtime-deps\debug\desugar_try_with_resources.jar'
+-outjars 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+
+-libraryjars 'D:\Android\Sdk\build-tools\25.0.2\lib\shrinkedAndroid.jar'
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-dontpreverify
+-dontnote **
+-dontwarn **
+-printconfiguration 'C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\multi-dex\debug\components.flags'
+
+
+# Referenced at C:\Users\minhd\Desktop\New-folder_2\New-folder\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:38
+-keep class com.ezhometeam.common.App {
+    <init>(...);
+}
+
+-keep public class * extends android.app.Instrumentation {
+    <init>();
+}
+
+-keep public class * extends android.app.Application {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.android.tools.fd.** {
+    <fields>;
+    <methods>;
+}

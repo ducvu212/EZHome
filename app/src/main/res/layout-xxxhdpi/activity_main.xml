@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
-    tools:context="com.example.minhd.ezhome.ui.main.MainActivity">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/MainAct"
@@ -100,6 +99,7 @@
             android:src="@drawable/ic_login_email" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/edt_pass"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -131,6 +131,7 @@
             android:textAllCaps="false" />
 
         <TextView
+            android:id="@+id/tv_forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -139,6 +140,7 @@
             android:textColor="#888BAC" />
 
         <TextView
+            android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

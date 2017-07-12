@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/info"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/Infocover"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:scaleType="centerCrop" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/InforAva"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-40dp"
+        android:src="@drawable/user96" />
+
+    <TextView
+        android:id="@+id/InfoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Vu Minh Duc"
+        android:textColor="#212121"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/InfoEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="minhducvu.212@gmail.com"
+        android:textColor="#212121"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_contact_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

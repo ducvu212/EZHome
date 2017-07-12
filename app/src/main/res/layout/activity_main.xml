@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
-    tools:context="com.example.minhd.ezhome.ui.main.MainActivity">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/MainAct"
@@ -30,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="150dp"
-            android:background="#3b5998"
+            android:background="@color/blue_main"
             android:gravity="center"
             android:text="FaceBook"
             android:textAllCaps="false"
@@ -99,18 +98,6 @@
             android:layout_marginTop="375dp"
             android:src="@drawable/ic_login_email" />
 
-        <EditText
-            android:id="@+id/edt_pass"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="429dp"
-            android:background="@drawable/shape"
-            android:hint="       Mật khẩu của bạn"
-            android:paddingLeft="40dp"
-            android:textColorHint="#888BAC"
-            android:textSize="20sp" />
-
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -130,6 +117,7 @@
             android:textAllCaps="false" />
 
         <TextView
+            android:id="@+id/tv_forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -139,6 +127,7 @@
             android:textColor="#888BAC" />
 
         <TextView
+            android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -148,6 +137,19 @@
             android:textSize="20sp"
             android:textColor="#fff"
             android:textStyle="bold" />
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edt_pass"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="429dp"
+            android:background="@drawable/shape"
+            android:hint="   Mật khẩu của bạn"
+            android:paddingLeft="40dp"
+            android:textColorHint="#888BAC"
+            android:textSize="20sp" />
 
 
     </FrameLayout>

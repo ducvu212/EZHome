@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="196dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_image"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:gravity="center"
+            android:text="kdvnksnfdn lkf kflkndlskvn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </LinearLayout>

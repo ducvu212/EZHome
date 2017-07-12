@@ -29,7 +29,9 @@ import android.widget.Toast;
 import com.ezhometeam.R;
 import com.ezhometeam.ui.base.animation.ScreenAnimation;
 import com.ezhometeam.ui.base.fragment.BaseFragment;
+import com.ezhometeam.ui.base.fragment.HomeFragment;
 import com.ezhometeam.ui.base.fragment.InfoFragment;
+import com.ezhometeam.ui.base.fragment.MapFragment;
 import com.ezhometeam.ui.base.fragment.RegisterFragment;
 import com.ezhometeam.ui.dialog.SearchDiaglog;
 import com.ezhometeam.ui.main.MainActivity;
@@ -76,18 +78,24 @@ public class Main2Activity extends AppCompatActivity
     private NavigationView navigationView;
     private RegisterFragment registerFragment;
     private InfoFragment infoFragment;
-    private TextView tvSearch;
-    private ImageView imgSearch, imgLocation;
+    private HomeFragment homeFragment ;
+    public static TextView tvSearch;
+    public static ImageView imgSearch, imgLocation;
     private GoogleApiClient mGoogleApiClient;
     private boolean isLogout;
     private DrawerLayout drawer;
     private ImageView imgBackground;
-    private Button btnMenu;
+    public static Button btnMenu;
+    private String userId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("EMAIL");
+
         try {
             setContentView(R.layout.activity_main2);
 
@@ -124,7 +132,6 @@ public class Main2Activity extends AppCompatActivity
 
         } catch (NullPointerException e) {
         }
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -344,22 +351,29 @@ public class Main2Activity extends AppCompatActivity
                     || (registerFragment != null && registerFragment.isVisible())) {
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
+                MapFragment map = new MapFragment();
                 if (infoFragment != null) {
                     transaction.hide(infoFragment);
+                    transaction.add(R.id.info, map) ;
                 }
                 if (registerFragment != null) {
                     transaction.hide(registerFragment);
+                    transaction.add(R.id.reg, map) ;
+                }
+                if (homeFragment != null) {
+                    transaction.hide(homeFragment);
+                    transaction.add(R.id.reg, map) ;
                 }
                 transaction.commit();
             }
 
         } else if (id == R.id.user) {
-            infoFragment = new InfoFragment();
+            infoFragment = new InfoFragment(userId);
 
             startFragments(infoFragment);
 
         } else if (id == R.id.reg) {
-            registerFragment = new RegisterFragment();
+            registerFragment = new RegisterFragment(userId);
             startFragments(registerFragment);
 
         } else if (id == R.id.logout) {
@@ -469,7 +483,13 @@ public class Main2Activity extends AppCompatActivity
         SearchDiaglog searchDiaglog = new SearchDiaglog();
         android.app.FragmentManager manager = getFragmentManager();
         searchDiaglog.show(manager, "Ahihi");
-
+        try {
+            imgSearch.setVisibility(View.INVISIBLE);
+            tvSearch.setVisibility(View.INVISIBLE);
+            btnMenu.setVisibility(View.INVISIBLE);
+            imgLocation.setVisibility(View.INVISIBLE);
+        } catch (NullPointerException e) {
+        }
     }
 
     @Override

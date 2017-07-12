@@ -20,6 +20,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ezhometeam.R;
 import com.ezhometeam.common.InfomationRegister;
@@ -37,11 +39,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static com.ezhometeam.ui.base.fragment.CustomInfoWindow.tvAdress;
+import static com.ezhometeam.ui.base.fragment.CustomInfoWindow.tvPrice;
 
 /**
  * Created by ducnd on 5/28/17.
@@ -50,7 +56,9 @@ import java.util.Locale;
 public class MapFragment extends SupportMapFragment implements
         OnMapReadyCallback, FragmentCompat.OnRequestPermissionsResultCallback,
         GoogleMap.OnMyLocationChangeListener, GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.InfoWindowAdapter{
+        GoogleMap.InfoWindowAdapter {
+
+    private View viewMap;
 
     private static final String TAG = MapFragment.class.getSimpleName();
     public static GoogleMap googleMap;
@@ -163,7 +171,7 @@ public class MapFragment extends SupportMapFragment implements
         googleMap.setOnMyLocationChangeListener(this);
         //custom windown adpater: click marker
 //        googleMap.setOnInfoWindowClickListener(this);
-//        googleMap.setInfoWindowAdapter(this);
+        googleMap.setInfoWindowAdapter(this);
         googleMap.setMyLocationEnabled(true);
         checkOpenLocation();
     }
@@ -190,6 +198,7 @@ public class MapFragment extends SupportMapFragment implements
             options.title("My location");
             options.snippet(getLocation(latLng));
             marker = googleMap.addMarker(options);
+//            marker.showInfoWindow();
 
         } else {
             marker.setTitle("My location");
@@ -275,7 +284,29 @@ public class MapFragment extends SupportMapFragment implements
     public View getInfoWindow(Marker marker) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.layout_marker, null);
+        tvPrice = (TextView) view.findViewById(R.id.tv_price);
+        tvAdress = (TextView) view.findViewById(R.id.tv_address);
+        ImageView ivImage = (ImageView)view.findViewById(R.id.iv_image);
         ///thao tao trong view binh thuong
+        int position = Integer.valueOf(marker.getSnippet());
+        tvPrice.setText(infomationRegisters.get(position).getPrice());
+        tvAdress.setText(infomationRegisters.get(position).getAddress());
+        String linkImage =  infomationRegisters.get(position).getLinkImg();
+        if( linkImage != null && !"".equals(linkImage)) {
+            Log.d(TAG, "getInfoWindow " +linkImage );
+            Picasso.with(getContext())
+                    .load(linkImage)
+                    .placeholder(android.R.color.darker_gray)
+                    .error(android.R.color.darker_gray)
+                    .into(ivImage);
+        }else {
+            Picasso.with(getContext())
+                    .load(android.R.color.darker_gray)
+                    .placeholder(android.R.color.darker_gray)
+                    .error(android.R.color.darker_gray)
+                    .into(ivImage);
+        }
+
         return view;
     }
 
@@ -283,15 +314,36 @@ public class MapFragment extends SupportMapFragment implements
     public View getInfoContents(Marker marker) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.layout_marker, null);
+        tvPrice = (TextView) view.findViewById(R.id.tv_price);
+        tvAdress = (TextView) view.findViewById(R.id.tv_address);
+        ImageView ivImage = (ImageView)view.findViewById(R.id.iv_image);
         ///thao tao trong view binh thuong
+        int position = Integer.valueOf(marker.getSnippet());
+        tvPrice.setText(infomationRegisters.get(position).getPrice());
+        tvAdress.setText(infomationRegisters.get(position).getAddress());
+        String linkImage =  infomationRegisters.get(position).getLinkImg();
+        if( linkImage != null && !"".equals(linkImage)) {
+            Picasso.with(getContext())
+                    .load(infomationRegisters.get(position).getLinkImg())
+                    .placeholder(R.drawable.home)
+                    .error(R.drawable.home)
+                    .into(ivImage);
+        }else {
+            Picasso.with(getContext())
+                    .load(R.drawable.home)
+                    .placeholder(R.drawable.home)
+                    .error(R.drawable.home)
+                    .into(ivImage);
+        }
+
         return view;
     }
+
+    private List<InfomationRegister> infomationRegisters = new ArrayList<>();
 
 
     private void makerAdress() {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-        List<String> arrAdress = new ArrayList<>();
-        List<String> price = new ArrayList<>();
 
         myRef.child("Master").addChildEventListener(new ChildEventListener() {
             @Override
@@ -299,35 +351,26 @@ public class MapFragment extends SupportMapFragment implements
 
                 try {
                     InfomationRegister infomation = dataSnapshot.getValue(InfomationRegister.class);
-                    arrAdress.add(infomation.getAddress());
-                    price.add(infomation.getPrice()) ;
-                    Log.d("Info", arrAdress.get(0) + " " + arrAdress.size());
+                    infomationRegisters.add(infomation);
 
                     Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
                     MarkerOptions options = new MarkerOptions();
-                    List<List<Address>> addresses = new ArrayList<>();
-                    Address address;
-                    for (int i = 0; i < arrAdress.size(); i++) {
+                    List<Address> addresses = new ArrayList<>();
+                    Address address = geocoder.getFromLocationName(infomation.getAddress(), 1).get(0);
+                    addresses.add(address);
 
-                        addresses.add(geocoder.getFromLocationName(arrAdress.get(i), 1));
-                        Log.d("TAGG", arrAdress.get(i));
-                        address  = addresses.get(i).get(0);
-                        longitude = address.getLongitude();
-                        Log.d("TAGG", address.getLongitude() + "") ;
-                        latitude = address.getLatitude();
-                        Log.d("Address", arrAdress.size() + "");
-                        Log.d("Address", latitude + "\n" + longitude);
+                    longitude = address.getLongitude();
+                    latitude = address.getLatitude();
 
-                        LatLng latLng = new LatLng(latitude, longitude);
-                        options.
-                                icon(BitmapDescriptorFactory.
-                                        defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        options.position(latLng);
-                        options.title(price.get(i) + " ");
-                        options.snippet(arrAdress.get(i));
-                        marker = googleMap.addMarker(options);
-                    }
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    options.
+                            icon(BitmapDescriptorFactory.
+                                    defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    options.position(latLng);
+
+                    options.snippet((infomationRegisters.size() - 1) + "");
+                    marker = googleMap.addMarker(options);
 
 
                 } catch (Exception e) {

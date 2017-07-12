@@ -58,7 +58,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edt_khu_vuc"
+            android:id="@+id/edt_dia_chi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

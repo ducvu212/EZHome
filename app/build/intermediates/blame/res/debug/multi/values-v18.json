@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "C:\\Users\\minhd\\Desktop\\New-folder_2\\New-folder\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v18\\values-v18.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 48,
+                    "endOffset": 99
+                },
+                "from": {
+                    "file": "C:\\Users\\minhd\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\6963d2bc20e120bfe37eab2ee734a2ef\\res\\values-v18\\values-v18.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 48,
+                        "endOffset": 99
+                    }
+                }
+            }
+        ]
+    }
+]
